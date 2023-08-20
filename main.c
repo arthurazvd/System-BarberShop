@@ -61,6 +61,7 @@ int menu_inicial(){
     printf("|                    3 - T A B E L A   D E   P R E Ç O S                    |\n");
     printf("|                    4 - M Á Q U I N A S                                    |\n");
     printf("|                    5 - S O B R E                                          |\n");
+    printf("|                    0 - S A I R                                            |\n");
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
@@ -81,6 +82,7 @@ int menu_agenda(){
     printf("|                 2 - P E S Q U I S A R                                     |\n");
     printf("|                 3 - A G E N D A R   H O R Á R I O                         |\n");
     printf("|                 4 - C A N C E L A M E N T O                               |\n");
+    printf("|                 0 - V O L T A R                                           |\n");
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
@@ -101,6 +103,7 @@ int menu_clientes(){
     printf("|                           2 - P E S Q U I S A R                           |\n");
     printf("|                           3 - C A D A S T R O                             |\n");
     printf("|                           4 - D E L E T A R                               |\n");
+    printf("|                           0 - V O L T A R                                 |\n");
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
@@ -121,6 +124,7 @@ int menu_precos(){
     printf("|                           2 - P E S Q U I S A R                           |\n");
     printf("|                           3 - C A D A S T R O                             |\n");
     printf("|                           4 - D E L E T A R                               |\n");
+    printf("|                           0 - V O L T A R                                 |\n");
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
@@ -141,6 +145,7 @@ int menu_maquinas(){
     printf("|                           2 - P E S Q U I S A R                           |\n");
     printf("|                           3 - C A D A S T R O                             |\n");
     printf("|                           4 - D E L E T A R                               |\n");
+    printf("|                           0 - V O L T A R                                 |\n");
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
@@ -167,14 +172,134 @@ int sobre(){
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
-    int resp;
-    printf("\nD I G I T E   A   O P Ç Ã O : ");
-    scanf("%d", &resp);
+    printf("\nP R E S S I O N E   Q U A L Q U E R   T E C L A . . . ");
+    system("pause > NULL");
     system("cls");
+ 
 
-    return resp;
+    return 0;
 }
+
 int main(){
     setlocale(LC_ALL, "Portuguese_Brazil");
-    menu_inicial();
+    system("MODE con cols=230 lines=50");
+    system("title System BarberShop");
+    tela_inicial();
+    int resp = menu_inicial();
+    int resp2;
+    
+    while(resp != 0){
+        if(resp == 1){
+            resp2 = menu_agenda();
+            if(resp2 == 1){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else if(resp2 == 2){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else if(resp2 == 3){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else if(resp2 == 4){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else{
+                resp = menu_inicial();
+            }
+        }
+
+        if(resp == 2){
+            resp2 = menu_clientes();
+            if(resp2 == 1){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else if(resp2 == 2){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else if(resp2 == 3){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else if(resp2 == 4){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else{
+                resp = menu_inicial();
+            }
+        }
+
+        if(resp == 3){
+            resp2 = menu_precos();
+            if(resp2 == 1){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else if(resp2 == 2){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else if(resp2 == 3){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else if(resp2 == 4){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else{
+                resp = menu_inicial();
+            }
+        }
+
+        if(resp == 4){
+            resp2 = menu_maquinas();
+            if(resp2 == 1){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else if(resp2 == 2){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else if(resp2 == 3){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else if(resp2 == 4){
+                printf("EM DESENVOLVIMENTO\n");
+                system("pause");
+                system("cls");
+            }
+            else{
+                resp = menu_inicial();
+            }
+        }
+
+        if(resp == 5){
+            resp2 = sobre();
+            resp = menu_inicial();
+        }
+    }
 }
