@@ -230,7 +230,7 @@ int main(){
             }
         }
 
-        if(resp == 2){
+        else if(resp == 2){
             resp2 = menu_clientes();
             if(resp2 == 1){
                 printf("EM DESENVOLVIMENTO\n");
@@ -257,7 +257,7 @@ int main(){
             }
         }
 
-        if(resp == 3){
+        else if(resp == 3){
             resp2 = menu_precos();
             if(resp2 == 1){
                 printf("EM DESENVOLVIMENTO\n");
@@ -284,7 +284,7 @@ int main(){
             }
         }
 
-        if(resp == 4){
+        else if(resp == 4){
             resp2 = menu_maquinas();
             if(resp2 == 1){
                 printf("EM DESENVOLVIMENTO\n");
@@ -311,7 +311,7 @@ int main(){
             }
         }
 
-        if(resp == 5){
+        else if(resp == 5){
             resp2 = sobre();
             resp = menu_inicial();
         }
