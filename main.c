@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 
+// Tela inicial do sistema que aparecerá assim for iniciado
 int tela_inicial(){ 
 
     printf("                                                                                                                                     \n");   
@@ -51,6 +52,7 @@ int tela_inicial(){
     return 0;
 }
 
+// Tela do menu inicial que mostra as principais coisas que podem ser colocados em um sistema de barbearia
 int menu_inicial(){
     printf("|---------------------------------------------------------------------------|\n");
     printf("|-------------------  S Y S T E M   B A R B E R S H O P  -------------------|\n");
@@ -73,6 +75,7 @@ int menu_inicial(){
     return resp;
 }
 
+// Tela de agendamentos
 int menu_agenda(){
     printf("|---------------------------------------------------------------------------|\n");
     printf("|------------------------  A G E N D A M E N T O S  ------------------------|\n");
@@ -94,6 +97,7 @@ int menu_agenda(){
     return resp;
 }
 
+// Tela de cadastro, pesquisa e exclusão de clientes
 int menu_clientes(){
     printf("|---------------------------------------------------------------------------|\n");
     printf("|----------------------------  C L I E N T E S  ----------------------------|\n");
@@ -115,6 +119,7 @@ int menu_clientes(){
     return resp;
 }
 
+// Tela de cadastro, pesquisa e exclusão de preços de serviços
 int menu_precos(){
     printf("|---------------------------------------------------------------------------|\n");
     printf("|--------------------  T A B E L A   D E   P R E Ç O S  --------------------|\n");
@@ -136,6 +141,7 @@ int menu_precos(){
     return resp;
 }
 
+// Tela de cadastro, pesquisa e exclusão de máquinas
 int menu_maquinas(){
     printf("|---------------------------------------------------------------------------|\n");
     printf("|----------------------------  M Á Q U I N A S  ----------------------------|\n");
@@ -157,10 +163,16 @@ int menu_maquinas(){
     return resp;
 }
 
+// Tela com informações sobre o projeto
 int sobre(){
     printf("|---------------------------------------------------------------------------|\n");
     printf("|-------------------------------  S O B R E  -------------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|               Universidade Federal do Rio Grande do Norte                 |\n");
+    printf("|               Campus Caicó - 2023                                         |\n");
+    printf("|               Bacharelado em Sistemas de Informação - BSI                 |\n");
+    printf("|               Disciplina: Programação - Prof.: Flavius                    |\n");
     printf("|                                                                           |\n");
     printf("|                 O System BarberShop é um sistema voltado para             |\n");
     printf("|               gerenciar barbearias, criado para a materia de              |\n");
@@ -180,6 +192,8 @@ int sobre(){
     return 0;
 }
 
+
+// Função MAIN onde está toda a logica que deixa as telas interligadas
 int main(){
     setlocale(LC_ALL, "Portuguese_Brazil");
     system("MODE con cols=230 lines=50");
