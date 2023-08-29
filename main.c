@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 
-// Tela inicial do sistema que aparecerá assim for iniciado
+// Tela inicial do sistema que aparecerï¿½ assim for iniciado
 int tela_inicial(){ 
 
     printf("                                                                                                                                     \n");   
@@ -60,15 +60,15 @@ int menu_inicial(){
     printf("|                                                                           |\n");
     printf("|                    1 - A G E N D A M E N T O S                            |\n");
     printf("|                    2 - C L I E N T E S                                    |\n");
-    printf("|                    3 - T A B E L A   D E   P R E Ç O S                    |\n");
-    printf("|                    4 - M Á Q U I N A S                                    |\n");
+    printf("|                    3 - T A B E L A   D E   P R E ï¿½ O S                    |\n");
+    printf("|                    4 - M ï¿½ Q U I N A S                                    |\n");
     printf("|                    5 - S O B R E                                          |\n");
     printf("|                    0 - S A I R                                            |\n");
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
     int resp;
-    printf("\nD I G I T E   A   O P Ç Ã O : ");
+    printf("\nD I G I T E   A   O P ï¿½ ï¿½ O : ");
     scanf("%d", &resp);
     system("cls");
 
@@ -81,23 +81,23 @@ int menu_agenda(){
     printf("|------------------------  A G E N D A M E N T O S  ------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
     printf("|                                                                           |\n");
-    printf("|                 1 - H O R Á R I O S   D I S P O N Í V E I S               |\n");
+    printf("|                 1 - H O R ï¿½ R I O S   D I S P O N ï¿½ V E I S               |\n");
     printf("|                 2 - P E S Q U I S A R                                     |\n");
-    printf("|                 3 - A G E N D A R   H O R Á R I O                         |\n");
+    printf("|                 3 - A G E N D A R   H O R ï¿½ R I O                         |\n");
     printf("|                 4 - C A N C E L A M E N T O                               |\n");
     printf("|                 0 - V O L T A R                                           |\n");
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
     int resp;
-    printf("\nD I G I T E   A   O P Ç Ã O : ");
+    printf("\nD I G I T E   A   O P ï¿½ ï¿½ O : ");
     scanf("%d", &resp);
     system("cls");
 
     return resp;
 }
 
-// Tela de cadastro, pesquisa e exclusão de clientes
+// Tela de cadastro, pesquisa e exclusï¿½o de clientes
 int menu_clientes(){
     printf("|---------------------------------------------------------------------------|\n");
     printf("|----------------------------  C L I E N T E S  ----------------------------|\n");
@@ -112,17 +112,17 @@ int menu_clientes(){
     printf("|---------------------------------------------------------------------------|\n");
 
     int resp;
-    printf("\nD I G I T E   A   O P Ç Ã O : ");
+    printf("\nD I G I T E   A   O P ï¿½ ï¿½ O : ");
     scanf("%d", &resp);
     system("cls");
 
     return resp;
 }
 
-// Tela de cadastro, pesquisa e exclusão de preços de serviços
+// Tela de cadastro, pesquisa e exclusï¿½o de preï¿½os de serviï¿½os
 int menu_precos(){
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|--------------------  T A B E L A   D E   P R E Ç O S  --------------------|\n");
+    printf("|--------------------  T A B E L A   D E   P R E ï¿½ O S  --------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
     printf("|                                                                           |\n");
     printf("|                           1 - L I S T A R                                 |\n");
@@ -134,17 +134,17 @@ int menu_precos(){
     printf("|---------------------------------------------------------------------------|\n");
 
     int resp;
-    printf("\nD I G I T E   A   O P Ç Ã O : ");
+    printf("\nD I G I T E   A   O P ï¿½ ï¿½ O : ");
     scanf("%d", &resp);
     system("cls");
 
     return resp;
 }
 
-// Tela de cadastro, pesquisa e exclusão de máquinas
+// Tela de cadastro, pesquisa e exclusï¿½o de mï¿½quinas
 int menu_maquinas(){
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|----------------------------  M Á Q U I N A S  ----------------------------|\n");
+    printf("|----------------------------  M ï¿½ Q U I N A S  ----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
     printf("|                                                                           |\n");
     printf("|                           1 - L I S T A R                                 |\n");
@@ -156,30 +156,30 @@ int menu_maquinas(){
     printf("|---------------------------------------------------------------------------|\n");
 
     int resp;
-    printf("\nD I G I T E   A   O P Ç Ã O : ");
+    printf("\nD I G I T E   A   O P ï¿½ ï¿½ O : ");
     scanf("%d", &resp);
     system("cls");
 
     return resp;
 }
 
-// Tela com informações sobre o projeto
+// Tela com informaï¿½ï¿½es sobre o projeto
 int sobre(){
     printf("|---------------------------------------------------------------------------|\n");
     printf("|-------------------------------  S O B R E  -------------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
     printf("|                                                                           |\n");
     printf("|               Universidade Federal do Rio Grande do Norte                 |\n");
-    printf("|               Campus Caicó - 2023                                         |\n");
-    printf("|               Bacharelado em Sistemas de Informação - BSI                 |\n");
-    printf("|               Disciplina: Programação - Prof.: Flavius                    |\n");
+    printf("|               Campus Caicï¿½ - 2023                                         |\n");
+    printf("|               Bacharelado em Sistemas de Informaï¿½ï¿½o - BSI                 |\n");
+    printf("|               Disciplina: Programaï¿½ï¿½o - Prof.: Flavius                    |\n");
     printf("|                                                                           |\n");
-    printf("|                 O System BarberShop é um sistema voltado para             |\n");
+    printf("|                 O System BarberShop ï¿½ um sistema voltado para             |\n");
     printf("|               gerenciar barbearias, criado para a materia de              |\n");
-    printf("|               programação do 2° periodo do curso de BSI na                |\n");
-    printf("|               UFRN campus de Caicó.                                       |\n");
+    printf("|               programaï¿½ï¿½o do 2ï¿½ periodo do curso de BSI na                |\n");
+    printf("|               UFRN campus de Caicï¿½.                                       |\n");
     printf("|                                                                           |\n");
-    printf("|               Desenvolvedor: Arthur Azevêdo                               |\n");
+    printf("|               Desenvolvedor: Arthur Azevï¿½do                               |\n");
     printf("|               GitHub: https://github.com/arthurazvd                       |\n");
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
@@ -187,13 +187,200 @@ int sobre(){
     printf("\nP R E S S I O N E   Q U A L Q U E R   T E C L A . . . ");
     system("pause > NULL");
     system("cls");
- 
 
     return 0;
+ 
 }
 
+//#################################################################
+//  SUBTELAS DOS MENUS
+//#################################################################
 
-// Função MAIN onde está toda a logica que deixa as telas interligadas
+//  SUBTELAS AGENDAMENTO
+
+void agd_horario(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|----------------------------  H O R ï¿½ R I O S  ----------------------------|\n");
+    printf("|-------------------------  D I S P O N ï¿½ V E I S  -------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
+void agd_pesquisa(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|----------------------------  P E S Q U I S A  ----------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
+void agd_agendar(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|-----------------------------  A G E N D A R  -----------------------------|\n");
+    printf("|----------------------------  H O R ï¿½ R I O S  ----------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
+void agd_cancelamento(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|----------------------------  C A N C E L A R  ----------------------------|\n");
+    printf("|-----------------------------  H O R ï¿½ R I O  -----------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
+//  SUBTELAS CLIENTES
+
+void cli_lista(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|----------------------------  C L I E N T E S  ----------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
+void cli_pesquisa(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|--------------------------  P E S Q U I S A  D E --------------------------|\n");
+    printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
+void cli_cadas(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|--------------------------  C A D A S T R O  D E  -------------------------|\n");
+    printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
+void cli_del(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|-----------------------------  D E L E T A R  -----------------------------|\n");
+    printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
+//  SUBTELAS TABELA DE PREï¿½OS
+
+void pre_lista(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|---------------------------  T A B E L A  D E  ----------------------------|\n");
+    printf("|------------------------------  P R E ï¿½ O S  ------------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
+void pre_pesquisa(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|--------------------------  P E S Q U I S A  D E --------------------------|\n");
+    printf("|------------------------------  P R E ï¿½ O S  ------------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
+void pre_cadas(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|--------------------------  C A D A S T R O  D E  -------------------------|\n");
+    printf("|------------------------------  P R E ï¿½ O S  ------------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
+void pre_del(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|-----------------------------  D E L E T A R  -----------------------------|\n");
+    printf("|------------------------------  P R E ï¿½ O S  ------------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
+//  SUBTELAS Mï¿½QUINAS
+
+void maq_lista(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|----------------------------  M ï¿½ Q U I N A S  ----------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
+void maq_pesquisa(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|--------------------------  P E S Q U I S A  D E --------------------------|\n");
+    printf("|-----------------------------  M ï¿½ Q U I N A  -----------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
+void maq_cadas(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|--------------------------  C A D A S T R O  D E  -------------------------|\n");
+    printf("|-----------------------------  M ï¿½ Q U I N A  -----------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+}
+
 int main(){
     setlocale(LC_ALL, "Portuguese_Brazil");
     system("MODE con cols=230 lines=50");
@@ -206,22 +393,22 @@ int main(){
         if(resp == 1){
             resp2 = menu_agenda();
             if(resp2 == 1){
-                printf("EM DESENVOLVIMENTO\n");
+                agd_horario();
                 system("pause");
                 system("cls");
             }
             else if(resp2 == 2){
-                printf("EM DESENVOLVIMENTO\n");
+                agd_pesquisa();
                 system("pause");
                 system("cls");
             }
             else if(resp2 == 3){
-                printf("EM DESENVOLVIMENTO\n");
+                agd_agendar();
                 system("pause");
                 system("cls");
             }
             else if(resp2 == 4){
-                printf("EM DESENVOLVIMENTO\n");
+                agd_cancelamento();
                 system("pause");
                 system("cls");
             }
@@ -233,22 +420,22 @@ int main(){
         else if(resp == 2){
             resp2 = menu_clientes();
             if(resp2 == 1){
-                printf("EM DESENVOLVIMENTO\n");
+                cli_lista();
                 system("pause");
                 system("cls");
             }
             else if(resp2 == 2){
-                printf("EM DESENVOLVIMENTO\n");
+                cli_pesquisa();
                 system("pause");
                 system("cls");
             }
             else if(resp2 == 3){
-                printf("EM DESENVOLVIMENTO\n");
+                cli_cadas();
                 system("pause");
                 system("cls");
             }
             else if(resp2 == 4){
-                printf("EM DESENVOLVIMENTO\n");
+                cli_del();
                 system("pause");
                 system("cls");
             }
@@ -260,22 +447,22 @@ int main(){
         else if(resp == 3){
             resp2 = menu_precos();
             if(resp2 == 1){
-                printf("EM DESENVOLVIMENTO\n");
+                pre_lista();
                 system("pause");
                 system("cls");
             }
             else if(resp2 == 2){
-                printf("EM DESENVOLVIMENTO\n");
+                pre_pesquisa();
                 system("pause");
                 system("cls");
             }
             else if(resp2 == 3){
-                printf("EM DESENVOLVIMENTO\n");
+                pre_cadas();
                 system("pause");
                 system("cls");
             }
             else if(resp2 == 4){
-                printf("EM DESENVOLVIMENTO\n");
+                pre_del();
                 system("pause");
                 system("cls");
             }
@@ -287,22 +474,22 @@ int main(){
         else if(resp == 4){
             resp2 = menu_maquinas();
             if(resp2 == 1){
-                printf("EM DESENVOLVIMENTO\n");
+                maq_lista();
                 system("pause");
                 system("cls");
             }
             else if(resp2 == 2){
-                printf("EM DESENVOLVIMENTO\n");
+                maq_pesquisa();
                 system("pause");
                 system("cls");
             }
             else if(resp2 == 3){
-                printf("EM DESENVOLVIMENTO\n");
+                maq_cadas();
                 system("pause");
                 system("cls");
             }
             else if(resp2 == 4){
-                printf("EM DESENVOLVIMENTO\n");
+                maq_del();
                 system("pause");
                 system("cls");
             }
@@ -311,7 +498,7 @@ int main(){
             }
         }
 
-        else if(resp == 5){
+        if(resp == 5){
             resp2 = sobre();
             resp = menu_inicial();
         }
