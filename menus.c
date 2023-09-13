@@ -69,7 +69,7 @@ int menu_inicial(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -91,7 +91,7 @@ int menu_agenda(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -113,7 +113,7 @@ int menu_clientes(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -135,7 +135,7 @@ int menu_precos(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -157,7 +157,7 @@ int menu_maquinas(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -185,7 +185,7 @@ int sobre(){
 
     printf("\nP R E S S I O N E   Q U A L Q U E R   T E C L A . . . ");
     system("pause > NULL");
-    system("cls/clear");
+    system("clear");
 
     return 0;
  
@@ -211,7 +211,7 @@ int agd_horario(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -229,7 +229,7 @@ int agd_pesquisa(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -248,7 +248,7 @@ int agd_agendar(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -267,7 +267,7 @@ int agd_cancelamento(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -287,7 +287,7 @@ int cli_lista(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -306,7 +306,7 @@ int cli_pesquisa(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -325,7 +325,7 @@ int cli_cadas(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -344,7 +344,7 @@ int cli_del(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -365,7 +365,7 @@ int pre_lista(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -384,7 +384,7 @@ int pre_pesquisa(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -403,7 +403,7 @@ int pre_cadas(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -422,7 +422,7 @@ int pre_del(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -442,7 +442,7 @@ int maq_lista(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -461,7 +461,7 @@ int maq_pesquisa(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -480,7 +480,7 @@ int maq_cadas(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
@@ -499,7 +499,7 @@ int maq_del(){
     int resp;
     printf("\nD I G I T E   A   O P C A O : ");
     scanf("%d", &resp);
-    system("cls/clear");
+    system("clear");
 
     return resp;
 }
