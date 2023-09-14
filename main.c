@@ -3,11 +3,8 @@
 #include "menus.h"
 
 int main(){
-    tela_inicial();
     int resp = menu_inicial();
     int resp2;
-    int i = 1;
-    int agendamento[i];
 
     while(resp != 0){
         switch (resp)
