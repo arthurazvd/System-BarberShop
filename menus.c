@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "submenus.h"
+#define N 1000
 
 // Tela do menu inicial que mostra as principais coisas que podem ser colocados em um sistema de barbearia
 int menu_inicial(){
@@ -33,7 +35,8 @@ int menu_agenda(){
     printf("|                 1 - H O R A R I O S   D I S P O N I V E I S               |\n");
     printf("|                 2 - P E S Q U I S A R                                     |\n");
     printf("|                 3 - A G E N D A R   H O R A R I O                         |\n");
-    printf("|                 4 - C A N C E L A M E N T O                               |\n");
+    printf("|                 4 - E D I T A R                                           |\n");
+    printf("|                 5 - C A N C E L A M E N T O                               |\n");
     printf("|                 0 - V O L T A R                                           |\n");
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
@@ -55,7 +58,8 @@ int menu_clientes(){
     printf("|                           1 - L I S T A R                                 |\n");
     printf("|                           2 - P E S Q U I S A R                           |\n");
     printf("|                           3 - C A D A S T R O                             |\n");
-    printf("|                           4 - D E L E T A R                               |\n");
+    printf("|                           4 - E D I T A R                                 |\n");
+    printf("|                           5 - D E L E T A R                               |\n");
     printf("|                           0 - V O L T A R                                 |\n");
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
@@ -77,7 +81,8 @@ int menu_precos(){
     printf("|                           1 - L I S T A R                                 |\n");
     printf("|                           2 - P E S Q U I S A R                           |\n");
     printf("|                           3 - C A D A S T R O                             |\n");
-    printf("|                           4 - D E L E T A R                               |\n");
+    printf("|                           4 - E D I T A R                                 |\n");
+    printf("|                           5 - D E L E T A R                               |\n");
     printf("|                           0 - V O L T A R                                 |\n");
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
@@ -99,7 +104,8 @@ int menu_maquinas(){
     printf("|                           1 - L I S T A R                                 |\n");
     printf("|                           2 - P E S Q U I S A R                           |\n");
     printf("|                           3 - C A D A S T R O                             |\n");
-    printf("|                           4 - D E L E T A R                               |\n");
+    printf("|                           4 - E D I T A R                                 |\n");
+    printf("|                           5 - D E L E T A R                               |\n");
     printf("|                           0 - V O L T A R                                 |\n");
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
@@ -125,7 +131,7 @@ int sobre(){
     printf("|                                                                           |\n");
     printf("|                 O System BarberShop e um sistema voltado para             |\n");
     printf("|               gerenciar barbearias, criado para a materia de              |\n");
-    printf("|               programacao do 2 periodo do curso de BSI na                |\n");
+    printf("|               programacao do 2 periodo do curso de BSI na                 |\n");
     printf("|               UFRN campus de Caico.                                       |\n");
     printf("|                                                                           |\n");
     printf("|               Desenvolvedor: Arthur Azevedo                               |\n");
@@ -133,11 +139,11 @@ int sobre(){
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
+    int resp;
     printf("\nP R E S S I O N E   Q U A L Q U E R   T E C L A . . . ");
-    system("pause > NULL");
+    scanf("%d", &resp);
     system("clear");
-
-    return 0;
+    return resp;
  
 }
 
@@ -185,9 +191,27 @@ int agd_pesquisa(){
 }
 
 int agd_agendar(){
+    int id;
+    int hor;
     printf("|---------------------------------------------------------------------------|\n");
     printf("|-----------------------------  A G E N D A R  -----------------------------|\n");
     printf("|----------------------------  H O R A R I O S  ----------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    agendamento(&id, &hor);
+    printf("|---------------------------------------------------------------------------|\n");
+
+    int resp;
+    printf("\nD I G I T E   0   P A R A   V O L T A R : ");
+    scanf("%d", &resp);
+    system("clear");
+
+    return resp;
+}
+
+int agd_edit(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|------------------------------  E D I T A R  ------------------------------|\n");
+    printf("|-----------------------------  H O R A R I O  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
     printf("|                                                                           |\n");
     printf("|                                                                           |\n");
@@ -262,8 +286,28 @@ int cli_pesquisa(){
 }
 
 int cli_cadas(){
+    int id;
+    const char nome;
+    int cpf;
+    int tel;
     printf("|---------------------------------------------------------------------------|\n");
     printf("|--------------------------  C A D A S T R O  D E  -------------------------|\n");
+    printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    cadas_cli(&id,&nome,&cpf,&tel);
+    printf("|---------------------------------------------------------------------------|\n");
+
+    int resp;
+    printf("\nD I G I T E   A   O P C A O : ");
+    scanf("%d", &resp);
+    system("clear");
+
+    return resp;
+}
+
+int cli_edit(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|------------------------------  E D I T A R  ------------------------------|\n");
     printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
     printf("|                                                                           |\n");
@@ -358,6 +402,25 @@ int pre_cadas(){
     return resp;
 }
 
+int pre_edit(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|------------------------------  E D I T A R  ------------------------------|\n");
+    printf("|------------------------------  P R E C O S  ------------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+
+    int resp;
+    printf("\nD I G I T E   A   O P C A O : ");
+    scanf("%d", &resp);
+    system("clear");
+
+    return resp;
+}
+
 int pre_del(){
     printf("|---------------------------------------------------------------------------|\n");
     printf("|-----------------------------  D E L E T A R  -----------------------------|\n");
@@ -435,9 +498,28 @@ int maq_cadas(){
     return resp;
 }
 
+int maq_edit(){
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|------------------------------  E D I T A R  ------------------------------|\n");
+    printf("|-----------------------------  M A Q U I N A  -----------------------------|\n");
+    printf("|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+
+    int resp;
+    printf("\nD I G I T E   A   O P C A O : ");
+    scanf("%d", &resp);
+    system("clear");
+
+    return resp;
+}
+
 int maq_del(){
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|--------------------------  C A D A S T R O  D E  -------------------------|\n");
+    printf("|-----------------------------  D E L E T A R  -----------------------------|\n");
     printf("|-----------------------------  M A Q U I N A  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
     printf("|                                                                           |\n");
