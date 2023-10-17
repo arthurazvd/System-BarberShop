@@ -6,7 +6,7 @@
 
 //SUBMENUS DE AGENDA
 
-void agendamento(int id, int hor){
+int agendamento(){
     printf("Digite o ID do cliente: ");
     scanf("%d", &id);
     printf("Digite o Horário: ");
@@ -15,15 +15,44 @@ void agendamento(int id, int hor){
 
 //SUBMENUS DE CLIENTES
 
-void cadas_cli(int id, char nome, int cpf, int tel){
-    printf("Digite o ID: ");
-    scanf("%d", &id);
-    printf("Digite o Nome do Cliente: ");
-    scanf("%c", &nome);
-    printf("Digite o CPF do Cliente: ");
-    scanf("%d", &cpf);
-    printf("Digite o Telefone do Cliente: ");
-    scanf("%d", &tel);
+int cadas_cli(){
+    char cpf[11];
+    char nome[100];
+    char tel[11];
+    
+    bool valid = false;
+    while(valid = false){
+        printf("Digite o CPF do cliente: ");
+        fgets(cpf, sizeof(cpf), stdin); 
+        cpf[strcspn(cpf, "\n")] = '\0';
+
+        if(validarCPF(cpf)){
+            printf("Digite o Nome do cliente: ");
+            fgets(nome, sizeof(nome), stdin); 
+            nome[strcspn(nome, "\n")] = '\0';
+
+            if(validarnome(nome)){
+                printf("Digite o Telefone do cliente: ");
+                fgets(tel, sizeof(tel), stdin); 
+                tel[strcspn(tel, "\n")] = '\0';
+
+                if(validartelefone(tel)){
+                    printf("Cliente Cadastrado!");
+                    valid = true;
+                    return 0;
+                }
+                else{
+                    valid = false;
+                } 
+            }
+            else{
+                valid = false;
+            }    
+        }
+        else{
+            valid = false;
+        }
+    }
 
 }
 
