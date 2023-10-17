@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include <string.h>
 
 
 //Função de validar nome - desenvolvido a partir do chatGPT - foi testada e aprovada
