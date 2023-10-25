@@ -5,5 +5,7 @@ bool validarnome();
 int validarCPF();
 int validartelefone();
 int validardata();
+int validarhora();
+int validarnumero();
 
 #endif
