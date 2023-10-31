@@ -40,14 +40,35 @@ struct maquinas{
 //  SUBTELAS AGENDAMENTO
 
 int agd_horario(){
+    struct horario nh;
+    FILE *p;
     printf("|---------------------------------------------------------------------------|\n");
     printf("|----------------------------  H O R A R I O S  ----------------------------|\n");
     printf("|-------------------------  D I S P O N O V E I S  -------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
+    p = fopen("horarios", "a+b");
+    if(p == NULL){
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+    else{
+        while(!feof(p)){
+            fread(&nh, sizeof(struct horario), 1, p);
+            if(ferror(p)){
+            printf("\nERRO NA LEITURA\n");
+            }
+            else{
+                printf("\nCPF [ %s ] ", nh.cpf_cli);
+                printf("\nDia [ %s ] ", nh.dia);
+                printf("\nMes [ %s ] ", nh.mes);
+                printf("\nAno [ %s ] ", nh.ano);
+                printf("\nHora [ %s ] ", nh.hora);
+                printf("\nMinuto [ %s ] \n", nh.minuto);
+                printf("\n|---------------------------------------------------------------------------|\n");
+
+            }
+        }
+    }
     printf("|---------------------------------------------------------------------------|\n");
 
     int resp;
@@ -88,7 +109,7 @@ int agd_agendar(){
     printf("|----------------------------  H O R A R I O S  ----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
 
-    p = fopen("horarios.txt", "a+t");
+    p = fopen("horarios", "a+b");
     if (p == NULL){
         printf("Erro ao abrir arquivo\n!");
         exit(1);
@@ -207,10 +228,28 @@ int cli_lista(){
     printf("|---------------------------------------------------------------------------|\n");
     printf("|----------------------------  C L I E N T E S  ----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
+    struct cliente novo;
+    FILE *p;
+    p = fopen("clientes", "a+b");
+    if(p == NULL){
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+    else{
+        while(!feof(p)){
+            fread(&novo, sizeof(struct cliente), 1, p);
+            if(ferror(p)){
+            printf("\nERRO NA LEITURA\n");
+            }
+            else{
+                printf("\nCPF [ %s ] ", novo.cpf);
+                printf("\nNome [ %s ] ", novo.nome);
+                printf("\nTelefone [ %s ] \n", novo.tel);
+                printf("\n|---------------------------------------------------------------------------|\n");
+
+            }
+        }
+    }
     printf("|---------------------------------------------------------------------------|\n");
 
     int resp;
@@ -250,7 +289,7 @@ int cli_cadas(){
     printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
 
-    p = fopen("clientes.txt", "a+t");
+    p = fopen("clientes", "a+b");
     if (p == NULL){
         printf("Erro ao abrir arquivo\n!");
         exit(1);
@@ -358,10 +397,28 @@ int pre_lista(){
     printf("|---------------------------  T A B E L A  D E  ----------------------------|\n");
     printf("|------------------------------  P R E C O S  ------------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
+    struct precos pr;
+    FILE *p;
+    p = fopen("precos", "a+b");
+    if(p == NULL){
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+    else{
+        while(!feof(p)){
+            fread(&pr, sizeof(struct precos), 1, p);
+            if(ferror(p)){
+            printf("\nERRO NA LEITURA\n");
+            }
+            else{
+                printf("\nID [ %s ] ", pr.id);
+                printf("\nServico [ %s ] ", pr.servico);
+                printf("\nPreco R$ [ %s ] \n", pr.preco);
+                printf("\n|---------------------------------------------------------------------------|\n");
+
+            }
+        }
+    }
     printf("|---------------------------------------------------------------------------|\n");
 
     int resp;
@@ -403,7 +460,7 @@ int pre_cadas(){
     printf("|------------------------------  P R E C O S  ------------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
 
-    p = fopen("preco.txt", "a+t");
+    p = fopen("precos", "a+b");
     if (p == NULL){
         printf("Erro ao abrir arquivo\n!");
         exit(1);
@@ -513,10 +570,27 @@ int maq_lista(){
     printf("|---------------------------------------------------------------------------|\n");
     printf("|----------------------------  M A Q U I N A S  ----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
+    struct maquinas maq;
+    FILE *p;
+    p = fopen("maquinas", "a+b");
+    if(p == NULL){
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+    else{
+        while(!feof(p)){
+            fread(&maq, sizeof(struct maquinas), 1, p);
+            if(ferror(p)){
+            printf("\nERRO NA LEITURA\n");
+            }
+            else{
+                printf("\nID [ %s ] ", maq.id);
+                printf("\nNome [ %s ] \n", maq.nome);
+                printf("\n|---------------------------------------------------------------------------|\n");
+
+            }
+        }
+    }
     printf("|---------------------------------------------------------------------------|\n");
 
     int resp;
@@ -557,7 +631,7 @@ int maq_cadas(){
     printf("|--------------------------  C A D A S T R O  D E  -------------------------|\n");
     printf("|-----------------------------  M A Q U I N A  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    p = fopen("maquinas.txt", "a+t");
+    p = fopen("maquinas", "a+b");
     if (p == NULL){
         printf("Erro ao abrir arquivo\n!");
         exit(1);
