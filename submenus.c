@@ -3,6 +3,8 @@
 #include <stdbool.h>
 #include <string.h>
 #include "validacao.h"
+#include "salvar.h"
+
 
 // STRUCTS
 struct horario{
@@ -79,57 +81,75 @@ int agd_pesquisa(){
 int agd_agendar(){
     
     struct horario nh;
+    FILE *p;
     bool aux = true;    
     printf("|---------------------------------------------------------------------------|\n");
     printf("|-----------------------------  A G E N D A R  -----------------------------|\n");
     printf("|----------------------------  H O R A R I O S  ----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-     printf("Informe o CPF do cliente: ");
-    while(aux == true){
-        scanf(" %11[^\n]", nh.cpf_cli);
-        if(validarCPF(nh.cpf_cli)){
-            aux = false;
+
+    p = fopen("horarios.txt", "a+t");
+    if (p == NULL){
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+    else{
+        printf("Informe o CPF do cliente: ");
+        while(aux == true){
+            scanf(" %11[^\n]", nh.cpf_cli);
+            if(validarCPF(nh.cpf_cli)){
+                aux = false;
+            }
+            else{
+                aux = true;
+                printf("CPF INVALIDO ");
+                printf("\nDigite novamente: ");
+            }
         }
-        else{
-            aux = true;
-            printf("CPF INVALIDO ");
-            printf("\nDigite novamente: ");
+        printf("Informe o data a agendar ");
+        //aqui ele vai ter que validar se aquele horario está disponivel 
+        while(aux == false){
+            printf("\nDia: ");
+            scanf(" %2[^\n]", nh.dia);
+            printf("Mes: ");
+            scanf(" %2[^\n]", nh.mes);
+            printf("Ano: ");
+            scanf(" %4[^\n]", nh.ano);
+            if(validardata(nh.dia, nh.mes, nh.ano)){
+                aux = true;
+            }
+            else{
+                aux = false;
+                printf("DATA INVALIDO ");
+                printf("\nDigite novamente: ");
+            }
+        }
+        printf("Informe o hora a agendar ");
+        //aqui ele vai ter que validar se aquele horario está disponivel 
+        while(aux == true){
+            printf("\nHora: ");
+            scanf(" %3[^\n]", nh.hora);
+            printf("Minuto: ");
+            scanf(" %3[^\n]", nh.minuto);
+            if(validarhora(nh.hora, nh.minuto)){
+                aux = false;
+            }
+            else{
+                aux = true;
+                printf("HORA INVALIDO ");
+                printf("\nDigite novamente: ");
+            }
         }
     }
-    printf("Informe o data a agendar ");
-    //aqui ele vai ter que validar se aquele horario está disponivel 
-    while(aux == false){
-        printf("\nDia: ");
-        scanf(" %2[^\n]", nh.dia);
-        printf("Mes: ");
-        scanf(" %2[^\n]", nh.mes);
-        printf("Ano: ");
-        scanf(" %4[^\n]", nh.ano);
-        if(validardata(nh.dia, nh.mes, nh.ano)){
-            aux = true;
+    fwrite(&nh, sizeof(struct horario), 1, p);
+        if (ferror(p)){
+            printf("\nERRO NA GRAVACAO\n");
         }
         else{
-            aux = false;
-            printf("DATA INVALIDO ");
-            printf("\nDigite novamente: ");
+            printf("Gravacao OK\n");
         }
-    }
-    printf("Informe o hora a agendar ");
-    //aqui ele vai ter que validar se aquele horario está disponivel 
-    while(aux == true){
-        printf("\nHora: ");
-        scanf(" %3[^\n]", nh.hora);
-        printf("Minuto: ");
-        scanf(" %3[^\n]", nh.minuto);
-        if(validarhora(nh.hora, nh.minuto)){
-            aux = false;
-        }
-        else{
-            aux = true;
-            printf("HORA INVALIDO ");
-            printf("\nDigite novamente: ");
-        }
-    }
+    fclose(p);
+    
     printf("|---------------------------------------------------------------------------|\n");
 
 
@@ -223,48 +243,66 @@ int cli_pesquisa(){
 }
 int cli_cadas(){
     struct cliente novo;
+    FILE *p;
     bool aux = true;
     printf("|---------------------------------------------------------------------------|\n");
     printf("|--------------------------  C A D A S T R O  D E  -------------------------|\n");
     printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
 
-    printf("Informe o nome do cliente: ");
-    while(aux == true){
-        scanf(" %99[^\n]", novo.nome);
-        if(validarnome(novo.nome)){
-            aux = false;
+    p = fopen("clientes.txt", "a+t");
+    if (p == NULL){
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+    else{
+        printf("Informe o nome do cliente: ");
+        while(aux == true){
+            scanf(" %99[^\n]", novo.nome);
+            if(validarnome(novo.nome)){
+                aux = false;
+            }
+            else{
+                aux = true;
+                printf("NOME INVALIDO ");
+                printf("\nDigite novamente: ");
+            }
+        }
+        printf("Informe o CPF do cliente: ");
+        while(aux == false){
+            scanf(" %11[^\n]", novo.cpf);
+            if(validarCPF(novo.cpf)){
+                aux = true;
+            }
+            else{
+                aux = false;
+                printf("CPF INVALIDO ");
+                printf("\nDigite novamente: ");
+            }
+        }
+        printf("Informe o Telefone do cliente: ");
+        while(aux == true){
+            scanf(" %11[^\n]", novo.tel);
+            if(validartelefone(novo.tel)){
+                aux = false;
+            }
+            else{
+                aux = true;
+                printf("TELEFONE INVALIDO ");
+                printf("\nDigite novamente: ");
+            }
+        }
+
+        fwrite(&novo, sizeof(struct cliente), 1, p);
+        if (ferror(p)){
+            printf("\nERRO NA GRAVACAO\n");
         }
         else{
-            aux = true;
-            printf("NOME INVALIDO ");
-            printf("\nDigite novamente: ");
+            printf("Gravacao OK\n");
         }
+    fclose(p);
     }
-    printf("Informe o CPF do cliente: ");
-    while(aux == false){
-        scanf(" %11[^\n]", novo.cpf);
-        if(validarCPF(novo.cpf)){
-            aux = true;
-        }
-        else{
-            aux = false;
-            printf("CPF INVALIDO ");
-            printf("\nDigite novamente: ");
-        }
-    }
-    printf("Informe o Telefone do cliente: ");
-    while(aux == true){
-        scanf(" %11[^\n]", novo.tel);
-        if(validartelefone(novo.tel)){
-            aux = false;
-        }
-        else{
-            aux = true;
-            printf("TELEFONE INVALIDO ");
-            printf("\nDigite novamente: ");
-        }
-    }
+    
     printf("|---------------------------------------------------------------------------|\n");
 
     int resp;
@@ -357,48 +395,66 @@ int pre_pesquisa(){
 
 int pre_cadas(){
 
-    struct precos p;
+    struct precos pr;
+    FILE *p;
     bool aux = true;
     printf("|---------------------------------------------------------------------------|\n");
     printf("|--------------------------  C A D A S T R O  D E  -------------------------|\n");
     printf("|------------------------------  P R E C O S  ------------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("Informe o ID do servico: ");
-        while(aux == true){
-            scanf(" %9[^\n]", p.id);
-            if(validarnumero(p.id)){
-                aux = false;
+
+    p = fopen("preco.txt", "a+t");
+    if (p == NULL){
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+    else{
+        printf("Informe o ID do servico: ");
+            while(aux == true){
+                scanf(" %9[^\n]", pr.id);
+                if(validarnumero(pr.id)){
+                    aux = false;
+                }
+                else{
+                    aux = true;
+                    printf("ID INVALIDO ");
+                    printf("\nDigite novamente: ");
+                }
+            }
+            printf("Informe o servico: ");
+            while(aux == false){
+                scanf(" %24[^\n]", pr.servico);
+                if(validarnome(pr.servico)){
+                    aux = true;
+                }
+                else{
+                    aux = false;
+                    printf("SERVICO INVALIDO ");
+                    printf("\nDigite novamente: ");
+                }
+            }
+            printf("Informe o preco: ");
+            while(aux == true){
+                scanf(" %9[^\n]", pr.preco);
+                if(validarnumero(pr.preco)){
+                    aux = false;
+                }
+                else{
+                    aux = true;
+                    printf("PRECO INVALIDO ");
+                    printf("\nDigite novamente: ");
+                }
+            }
+            fwrite(&pr, sizeof(struct precos), 1, p);
+            if (ferror(p)){
+                printf("\nERRO NA GRAVACAO\n");
             }
             else{
-                aux = true;
-                printf("ID INVALIDO ");
-                printf("\nDigite novamente: ");
+                printf("Gravacao OK\n");
             }
+        fclose(p);
         }
-        printf("Informe o servico: ");
-        while(aux == false){
-            scanf(" %24[^\n]", p.servico);
-            if(validarnome(p.servico)){
-                aux = true;
-            }
-            else{
-                aux = false;
-                printf("SERVICO INVALIDO ");
-                printf("\nDigite novamente: ");
-            }
-        }
-        printf("Informe o preco: ");
-        while(aux == true){
-            scanf(" %9[^\n]", p.preco);
-            if(validarnumero(p.preco)){
-                aux = false;
-            }
-            else{
-                aux = true;
-                printf("PRECO INVALIDO ");
-                printf("\nDigite novamente: ");
-            }
-        }
+        
     printf("|---------------------------------------------------------------------------|\n");
 
     
@@ -495,25 +551,42 @@ int maq_pesquisa(){
 int maq_cadas(){
 
     struct maquinas maq;
+    FILE *p;
     bool aux = true;
     printf("|---------------------------------------------------------------------------|\n");
     printf("|--------------------------  C A D A S T R O  D E  -------------------------|\n");
     printf("|-----------------------------  M A Q U I N A  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("Informe o ID da maquina: ");
-        while(aux == true){
-            scanf(" %9[^\n]", maq.id);
-            if(validarnumero(maq.id)){
-                aux = false;
+    p = fopen("maquinas.txt", "a+t");
+    if (p == NULL){
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+    else{
+        printf("Informe o ID da maquina: ");
+            while(aux == true){
+                scanf(" %9[^\n]", maq.id);
+                if(validarnumero(maq.id)){
+                    aux = false;
+                }
+                else{
+                    aux = true;
+                    printf("ID INVALIDO ");
+                    printf("\nDigite novamente: ");
+                }
+            }
+       
+        printf("Informe a maquina: ");
+        scanf(" %19[^\n]", maq.nome);
+        fwrite(&maq, sizeof(struct maquinas), 1, p);
+            if (ferror(p)){
+                printf("\nERRO NA GRAVACAO\n");
             }
             else{
-                aux = true;
-                printf("ID INVALIDO ");
-                printf("\nDigite novamente: ");
+                printf("Gravacao OK\n");
             }
-        }
-    printf("Informe a maquina: ");
-    scanf(" %19[^\n]", maq.nome);
+        fclose(p);
+    }
     printf("|---------------------------------------------------------------------------|\n");
 
     

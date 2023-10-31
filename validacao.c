@@ -144,6 +144,7 @@ int validarhora(char *hora, char *minuto) {
   return 1;
 }
 
+//Função para validar numeros - Desenvolvida com auxilio do Google Bard
 int validarnumero(char *c) {
   // Valida se a string é composta apenas de números
   for (int i = 0; c[i] != '\0'; i++) {
