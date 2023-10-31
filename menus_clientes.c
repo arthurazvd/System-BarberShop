@@ -21,7 +21,7 @@ int cli_lista(){
     printf("|---------------------------------------------------------------------------|\n");
     struct cliente novo;
     FILE *p;
-    p = fopen("clientes", "a+b");
+    p = fopen("arquivos/clientes", "a+b");
     if(p == NULL){
         printf("Erro ao abrir arquivo\n!");
         exit(1);
@@ -80,7 +80,7 @@ int cli_cadas(){
     printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
 
-    p = fopen("clientes", "a+b");
+    p = fopen("arquivos/clientes", "a+b");
     if (p == NULL){
         printf("Erro ao abrir arquivo\n!");
         exit(1);

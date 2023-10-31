@@ -26,7 +26,7 @@ int agd_horario(){
     printf("|----------------------------  H O R A R I O S  ----------------------------|\n");
     printf("|---------------------------  A G E N D A D O S  ---------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    p = fopen("horarios", "a+b");
+    p = fopen("arquivos/horarios", "a+b");
     if(p == NULL){
         printf("Erro ao abrir arquivo\n!");
         exit(1);
@@ -87,7 +87,7 @@ int agd_agendar(){
     printf("|----------------------------  H O R A R I O S  ----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
 
-    p = fopen("horarios", "a+b");
+    p = fopen("arquivos/horarios", "a+b");
     if (p == NULL){
         printf("Erro ao abrir arquivo\n!");
         exit(1);

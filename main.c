@@ -7,6 +7,8 @@
 #include "menus_maquinas.h"
 
 int main(){
+    
+    system("clear");
 
     int resp = menu_inicial();
     int resp2;

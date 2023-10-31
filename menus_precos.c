@@ -22,7 +22,7 @@ int pre_lista(){
     printf("|---------------------------------------------------------------------------|\n");
     struct precos pr;
     FILE *p;
-    p = fopen("precos", "a+b");
+    p = fopen("arquivos/precos", "a+b");
     if(p == NULL){
         printf("Erro ao abrir arquivo\n!");
         exit(1);
@@ -82,7 +82,7 @@ int pre_cadas(){
     printf("|------------------------------  P R E C O S  ------------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
 
-    p = fopen("precos", "a+b");
+    p = fopen("arquivos/precos", "a+b");
     if (p == NULL){
         printf("Erro ao abrir arquivo\n!");
         exit(1);

@@ -20,7 +20,7 @@ int maq_lista(){
     printf("|---------------------------------------------------------------------------|\n");
     struct maquinas maq;
     FILE *p;
-    p = fopen("maquinas", "a+b");
+    p = fopen("arquivos/maquinas", "a+b");
     if(p == NULL){
         printf("Erro ao abrir arquivo\n!");
         exit(1);
@@ -78,7 +78,7 @@ int maq_cadas(){
     printf("|--------------------------  C A D A S T R O  D E  -------------------------|\n");
     printf("|-----------------------------  M A Q U I N A  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    p = fopen("maquinas", "a+b");
+    p = fopen("arquivos/maquinas", "a+b");
     if (p == NULL){
         printf("Erro ao abrir arquivo\n!");
         exit(1);
