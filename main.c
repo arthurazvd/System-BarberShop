@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "menus.h"
-#include "submenus.h"
-
+#include "menus_horario.h"
+#include "menus_clientes.h"
+#include "menus_precos.h"
+#include "menus_maquinas.h"
 
 int main(){
-
 
     int resp = menu_inicial();
     int resp2;

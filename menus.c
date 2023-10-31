@@ -2,8 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "submenus.h"
-#include "validacao.h"
+#include "menus_horario.h"
+#include "menus_clientes.h"
+#include "menus_precos.h"
+#include "menus_maquinas.h"
+
 
 // Tela do menu inicial que mostra as principais coisas que podem ser colocados em um sistema de barbearia
 int menu_inicial(){
