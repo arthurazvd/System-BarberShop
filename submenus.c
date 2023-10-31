@@ -39,6 +39,8 @@ struct maquinas{
 
 //  SUBTELAS AGENDAMENTO
 
+//Leitor de arquivos adaptado dos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=nJrENSVTF94&t=3s
+
 int agd_horario(){
     struct horario nh;
     FILE *p;
@@ -99,6 +101,7 @@ int agd_pesquisa(){
     return resp;
 }
 
+//Salvamento em arquivo feito com base nos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=TqbnYUUdGjw&t=281s
 int agd_agendar(){
     
     struct horario nh;
@@ -223,6 +226,7 @@ int agd_cancelamento(){
 }
 
 //  SUBTELAS CLIENTES
+//Leitor de arquivos adaptado dos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=nJrENSVTF94&t=3s
 
 int cli_lista(){
     printf("|---------------------------------------------------------------------------|\n");
@@ -280,6 +284,8 @@ int cli_pesquisa(){
 
     return resp;
 }
+
+//Salvamento em arquivo feito com base nos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=TqbnYUUdGjw&t=281s
 int cli_cadas(){
     struct cliente novo;
     FILE *p;
@@ -391,6 +397,7 @@ int cli_del(){
 }
 
 //  SUBTELAS TABELA DE PRECOS
+//Leitor de arquivos adaptado dos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=nJrENSVTF94&t=3s
 
 int pre_lista(){
     printf("|---------------------------------------------------------------------------|\n");
@@ -449,6 +456,7 @@ int pre_pesquisa(){
 
     return resp;
 }
+//Salvamento em arquivo feito com base nos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=TqbnYUUdGjw&t=281s
 
 int pre_cadas(){
 
@@ -565,6 +573,7 @@ int pre_del(){
 }
 
 //  SUBTELAS MAQUINAS
+//Leitor de arquivos adaptado dos slides e nessa video aula do Professor Romerson : https://www.youtube.com/watch?v=nJrENSVTF94&t=3s
 
 int maq_lista(){
     printf("|---------------------------------------------------------------------------|\n");
@@ -621,6 +630,7 @@ int maq_pesquisa(){
 
     return resp;
 }
+//Salvamento em arquivo feito com base nos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=TqbnYUUdGjw&t=281s
 
 int maq_cadas(){
 
