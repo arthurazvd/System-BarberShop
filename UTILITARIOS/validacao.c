@@ -8,13 +8,13 @@
 //Função de validar nome - desenvolvido a partir do chatGPT - foi testada e aprovada
 bool validarnome(char *nome) {
     if (nome == NULL || nome[0] == '\0') {
-        return 0; // O nome está vazio
+      return 0; // O nome está vazio
     }
 
     for (int i = 0; nome[i] != '\0'; i++) {
-        if (!isalpha(nome[i]) && nome[i] != ' ') {
-            return 0; // Caractere não é uma letra nem espaço
-        }
+      if (!isalpha(nome[i]) && nome[i] != ' ') {
+        return 0; // Caractere não é uma letra nem espaço
+      }
     }
 
     return 1; // Nome válido

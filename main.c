@@ -1,10 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "menus.h"
-#include "menus_horario.h"
-#include "menus_clientes.h"
-#include "menus_precos.h"
-#include "menus_maquinas.h"
+#include "UTILITARIOS/includes.h"
+
 
 int main(){
     

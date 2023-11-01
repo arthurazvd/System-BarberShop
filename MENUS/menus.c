@@ -2,10 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "menus_horario.h"
-#include "menus_clientes.h"
-#include "menus_precos.h"
-#include "menus_maquinas.h"
+#include "../UTILITARIOS/includes.h"
 
 
 // Tela do menu inicial que mostra as principais coisas que podem ser colocados em um sistema de barbearia
@@ -23,12 +20,7 @@ int menu_inicial(){
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
-    int resp;
-    printf("\nD I G I T E   A   O P C A O : ");
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+    digite_opcao();
 }
 
 // Tela de agendamentos
@@ -46,12 +38,7 @@ int menu_agenda(){
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
-    int resp;
-    printf("\nD I G I T E   A   O P C A O : ");
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+    digite_opcao();
 }
 
 // Tela de cadastro, pesquisa e exclusao de clientes
@@ -69,12 +56,7 @@ int menu_clientes(){
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
-    int resp;
-    printf("\nD I G I T E   A   O P C A O : ");
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+    digite_opcao();
 }
 
 // Tela de cadastro, pesquisa e exclusao de precos de servicos
@@ -92,18 +74,13 @@ int menu_precos(){
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
-    int resp;
-    printf("\nD I G I T E   A   O P C A O : ");
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+    digite_opcao();
 }
 
 // Tela de cadastro, pesquisa e exclusao de maquinas
 int menu_maquinas(){
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|----------------------------  M A Q U I N A S  ----------------------------|\n");
+    printf("|----------------------------  M Á Q U I N A S  ----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
     printf("|                                                                           |\n");
     printf("|                           1 - L I S T A R                                 |\n");
@@ -115,12 +92,7 @@ int menu_maquinas(){
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
-    int resp;
-    printf("\nD I G I T E   A   O P C A O : ");
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+    digite_opcao();
 }
 
 // Tela com informacoes sobre o projeto
@@ -144,11 +116,7 @@ int sobre(){
     printf("|                                                                           |\n");
     printf("|---------------------------------------------------------------------------|\n");
 
-    int resp;
-    printf("\nP R E S S I O N E   Q U A L Q U E R   T E C L A . . . ");
-    scanf("%d", &resp);
-    system("clear");
-    return resp;
+    digite_volte();
  
 }
 
