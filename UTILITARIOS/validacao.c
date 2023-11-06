@@ -179,3 +179,9 @@ int validarnumero(char *c) {
   // String é composta apenas de números
   return 1;
 }
+
+//Função para Limpar Buffer - Desenvolvida pelo ChatGPT
+void limparBuffer(void) {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) { }
+}

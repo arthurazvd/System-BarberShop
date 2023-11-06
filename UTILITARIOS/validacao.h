@@ -8,5 +8,6 @@ char* transformadata();
 int validardata();
 int validarhora();
 int validarnumero();
+void limparBuffer();
 
 #endif
