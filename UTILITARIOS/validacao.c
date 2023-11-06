@@ -79,14 +79,43 @@ int validartelefone(char *telefone) {
   return 1;
 }
 
-//Função para validar data - Desenvolvida com auxilio do Google Bard
-int validardata(char *dia, char *mes, char *ano) {
-  int dia_int, mes_int, ano_int;
+//Função para separar datas no formato dd/mm/aaaa em ddmmaaaa
 
-  // Converte os ponteiros char para inteiros
-  dia_int = atoi(dia);
-  mes_int = atoi(mes);
-  ano_int = atoi(ano);
+char* transformadata(const char *data) {
+    static char datasaida[9];  // Variável estática para armazenar a data de saída.
+
+    // Inicialize as variáveis para armazenar o dia, mês e ano.
+    int dia, mes, ano;
+
+    // Use sscanf para extrair o dia, mês e ano da data de entrada.
+    sscanf(data, "%d/%d/%d", &dia, &mes, &ano);
+
+    // Use sprintf para formatar a data de saída no formato desejado.
+    sprintf(datasaida, "%02d%02d%d", dia, mes, ano);
+
+    return datasaida;
+}
+
+//Função para validar data - Desenvolvida com auxilio do Google Bard e adaptado de Flavius Gorgonio - https://github.com/flgorgonio/linguasolta_2020.2
+int validardata(char *data) {
+  int tam, dia_int, mes_int, ano_int;
+
+  tam = strlen(data);
+  for (int i = 0; i < tam; i++) {
+    if (data[i] == '/') { 
+      data = transformadata(data);
+    }
+  }
+
+  tam = strlen(data);
+  if (tam != 8) {
+    return 0;
+  }
+
+  dia_int = (data[0] - '0') * 10 + (data[1] - '0');
+  mes_int = (data[2] - '0') * 10 + (data[3] - '0');
+  ano_int = (data[4] - '0') * 1000 + (data[5] - '0') * 100 + 
+        (data[6] - '0') * 10 + (data[7] - '0');
 
   // Valida a data
   if (dia_int < 1 || dia_int > 31) {
@@ -119,15 +148,10 @@ int validardata(char *dia, char *mes, char *ano) {
       return 0;
     }
   }
+  
 
   return 1;
 }
-
-struct data {
-  int dia;
-  int mes;
-  int ano;
-};
 
 //Função para validar hora - Desenvolvida com auxilio do Google Bard
 int validarhora(char *hora, char *minuto) {
@@ -155,4 +179,3 @@ int validarnumero(char *c) {
   // String é composta apenas de números
   return 1;
 }
-

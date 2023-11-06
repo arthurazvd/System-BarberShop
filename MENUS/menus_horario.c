@@ -8,9 +8,7 @@
 
 struct horario{
     char cpf_cli[12];
-    char dia[3];
-    char mes[3];
-    char ano[5];
+    char data[11];
     char hora[3];
     char minuto[3];
 };
@@ -38,9 +36,7 @@ int agd_horario(){
             }
             else{
                 printf("\nCPF [ %s ] ", nh.cpf_cli);
-                printf("\nDia [ %s ] ", nh.dia);
-                printf("\nMes [ %s ] ", nh.mes);
-                printf("\nAno [ %s ] ", nh.ano);
+                printf("\nData [ %s ] ", nh.data);
                 printf("\nHora [ %s ] ", nh.hora);
                 printf("\nMinuto [ %s ] \n", nh.minuto);
                 printf("\n|---------------------------------------------------------------------------|\n");
@@ -108,13 +104,10 @@ int agd_agendar(){
         printf("Informe o data a agendar ");
         //aqui ele vai ter que validar se aquele horario está disponivel 
         while(aux == false){
-            printf("\nDia: ");
-            scanf(" %2[^\n]", nh.dia);
-            printf("Mes: ");
-            scanf(" %2[^\n]", nh.mes);
-            printf("Ano: ");
-            scanf(" %4[^\n]", nh.ano);
-            if(validardata(nh.dia, nh.mes, nh.ano)){
+            printf("\nData: ");
+            scanf(" %10[^\n]", nh.data);
+
+            if(validardata(nh.data)){
                 aux = true;
             }
             else{

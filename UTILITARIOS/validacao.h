@@ -4,6 +4,7 @@
 bool validarnome();
 int validarCPF();
 int validartelefone();
+char* transformadata();
 int validardata();
 int validarhora();
 int validarnumero();
