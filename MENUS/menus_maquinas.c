@@ -140,16 +140,7 @@ int maq_cadas(){
         fclose(p);
     }
     printf("|---------------------------------------------------------------------------|\n");
-
-    
-       
-    int resp;
-    printf("\nD I G I T E   0   P A R A  V O L T A R : ");
-
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+    digite_zero();
 }
 
 int maq_edit(){
@@ -157,19 +148,50 @@ int maq_edit(){
     printf("|------------------------------  E D I T A R  ------------------------------|\n");
     printf("|-----------------------------  M A Q U I N A  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
+
+    struct maquinas maq;
+    FILE *p;
+    char id_maq[10];
+    bool aux = true;
+
+    printf("\nInforme o ID da máquina a ser editada: ");
+    while (aux == true) {
+        scanf(" %9[^\n]", id_maq);
+        if (validarnumero(id_maq)) {
+            aux = false;
+        } else {
+            aux = true;
+            printf("ID INVALIDO ");
+            printf("\nDigite novamente: ");
+        }
+    }
+
+    p = fopen("ARQUIVOS/maquinas", "rb+");
+    if (p == NULL) {
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    } else {
+        while (fread(&maq, sizeof(struct maquinas), 1, p) && !feof(p)) {
+            if (strcmp(maq.id, id_maq) == 0) {
+
+                printf("Informe a nova máquina: ");
+                scanf(" %19[^\n]", maq.nome);
+                maq.nome[strcspn(maq.nome, "\n")] = '\0';
+
+                fseek(p, -sizeof(struct maquinas), SEEK_CUR);
+                fwrite(&maq, sizeof(struct maquinas), 1, p);
+
+                printf("Máquina editada com sucesso!\n");
+            }
+        }
+        if (strcmp(maq.id, id_maq) != 0) {
+            printf("Máquina não encontrada!\n");
+        }
+    }
+    fclose(p);
     printf("|---------------------------------------------------------------------------|\n");
 
-    int resp;
-    printf("\nD I G I T E   0   P A R A  V O L T A R : ");
-
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+    digite_zero();
 }
 
 int maq_del(){
@@ -177,17 +199,42 @@ int maq_del(){
     printf("|-----------------------------  D E L E T A R  -----------------------------|\n");
     printf("|-----------------------------  M A Q U I N A  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
+    struct maquinas maq;
+    FILE *p, *p_temp;
+    char id_maq[10];
+    bool aux = true;
+
+    printf("\nInforme o ID da maquina a ser deletado: ");
+    while (aux == true) {
+        scanf(" %9[^\n]", id_maq);
+        if (validarnumero(id_maq)) {
+            aux = false;
+        } else {
+            aux = true;
+            printf("ID INVALIDO ");
+            printf("\nDigite novamente: ");
+        }
+    }
+
+    p = fopen("ARQUIVOS/maquinas", "rb");
+    p_temp = fopen("ARQUIVOS/maquinas_temp", "wb");
+    if (p == NULL || p_temp == NULL) {
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    } else {
+        while (fread(&maq, sizeof(struct maquinas), 1, p) && !feof(p)) {
+            if (strcmp(maq.id, id_maq) != 0) {
+                fwrite(&maq, sizeof(struct maquinas), 1, p_temp);
+            }
+        }
+        fclose(p);
+        fclose(p_temp);
+
+        remove("ARQUIVOS/maquinas");
+        rename("ARQUIVOS/maquinas_temp", "ARQUIVOS/maquinas");
+
+        printf("Maquina deletada com sucesso!\n");
+    }
     printf("|---------------------------------------------------------------------------|\n");
-
-    int resp;
-    printf("\nD I G I T E   0   P A R A  V O L T A R : ");
-
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+    digite_zero();
 }

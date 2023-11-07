@@ -95,7 +95,7 @@ int pre_pesquisa(){
             }
         }
         if(strcmp(pr.id,id_pre) != 0){
-            printf("\nMAQUINA NAO ENCONTRADO");
+            printf("\nPRECO NAO ENCONTRADO");
             printf("\n|---------------------------------------------------------------------------|\n");
         }
     }

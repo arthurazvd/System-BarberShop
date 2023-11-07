@@ -87,7 +87,7 @@ int cli_pesquisa(){
             }
         }
         if(strcmp(novo.cpf,cpf_ip) != 0){
-            printf("\nHORARIO NAO ENCONTRADO");
+            printf("\nCLIENTE NAO ENCONTRADO");
             printf("\n|---------------------------------------------------------------------------|\n");
         }
     }
