@@ -106,6 +106,7 @@ int pre_pesquisa(){
 
 int pre_cadas(){
 
+    
     struct precos pr;
     FILE *p;
     bool aux = true;
@@ -182,25 +183,57 @@ int pre_edit(){
     bool aux = true;
 
     printf("\nInforme o ID do servico a ser editado: ");
-    scanf(" %9[^\n]", id_pre);
+    while (aux == true) {
+        scanf(" %9[^\n]", id_pre);
+        if (validarnumero(id_pre)) {
+            aux = false;
+        } else {
+            aux = true;
+            printf("ID INVALIDO ");
+            printf("\nDigite novamente: ");
+        }
+    }
 
     p = fopen("ARQUIVOS/precos", "rb+");
     if (p == NULL) {
         printf("Erro ao abrir arquivo\n!");
         exit(1);
-    }
+    } else {
+        while (fread(&pr, sizeof(struct precos), 1, p) && !feof(p)) {
+            if (strcmp(pr.id, id_pre) == 0) {
 
-    while (fread(&pr, sizeof(struct precos), 1, p) && !feof(p)) {
+                while (aux == false) {
+                    printf("Informe o novo servico: ");
+                    scanf(" %24[^\n]", pr.servico);
+                    if (validarnome(pr.servico)) {
+                        aux = true;
+                    } else {
+                        aux = false;
+                        printf("SERVICO INVALIDO ");
+                        printf("\nDigite novamente: ");
+                    }
+                }
 
-        if (strcmp(pr.id, id_pre) == 0) {
+                while (aux == true) {
+                    printf("Informe o novo preco: ");
+                    scanf(" %9[^\n]", pr.preco);
+                    if (validarnumero(pr.preco)) {
+                        aux = false;
+                    } else {
+                        aux = true;
+                        printf("PRECO INVALIDO ");
+                        printf("\nDigite novamente: ");
+                    }
+                }
 
-            printf("Informe o novo preco: ");
-            scanf(" %9[^\n]", pr.preco);
+                fseek(p, -sizeof(struct precos), SEEK_CUR);
+                fwrite(&pr, sizeof(struct precos), 1, p);
 
-            fseek(p, -sizeof(struct precos), SEEK_CUR);
-            fwrite(&pr, sizeof(struct precos), 1, p);
-
-            break;
+                printf("Preco editado com sucesso!\n");
+            }
+        }
+        if (strcmp(pr.id, id_pre) != 0) {
+            printf("Preco nao encontrado!\n");
         }
     }
     fclose(p);

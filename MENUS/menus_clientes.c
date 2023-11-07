@@ -169,10 +169,67 @@ int cli_edit(){
     printf("|------------------------------  E D I T A R  ------------------------------|\n");
     printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
+    struct cliente novo;
+    FILE *p;
+    char cpf_ip[12];
+    bool aux = true;
+
+    printf("\nInforme o CPF do cliente a ser editado: ");
+    while(aux == true){
+        scanf(" %11[^\n]", cpf_ip);
+        if(validarCPF(cpf_ip)){
+            aux = false;
+        }
+        else{
+            aux = true;
+            printf("CPF INVALIDO ");
+            printf("\nDigite novamente: ");
+        }
+    }
+
+    p = fopen("ARQUIVOS/clientes", "rb+");
+    if (p == NULL) {
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+
+    while (fread(&novo, sizeof(struct cliente), 1, p) && !feof(p)) {
+
+        if (strcmp(novo.cpf, cpf_ip) == 0) {
+            limparBuffer();
+            printf("Informe o nome do cliente: ");
+            while(aux == false){
+                scanf(" %99[^\n]", novo.nome);
+                if(validarnome(novo.nome)){
+                    aux = true;
+                }
+                else{
+                    aux = false;
+                    printf("NOME INVALIDO ");
+                    printf("\nDigite novamente: ");
+                }
+            }
+            limparBuffer();
+            printf("Informe o Telefone do cliente: ");
+            while(aux == true){
+                scanf(" %11[^\n]", novo.tel);
+                if(validartelefone(novo.tel)){
+                    aux = false;
+                }
+                else{
+                    aux = true;
+                    printf("TELEFONE INVALIDO ");
+                    printf("\nDigite novamente: ");
+                }
+            }
+
+            fseek(p, -sizeof(struct cliente), SEEK_CUR);
+            fwrite(&novo, sizeof(struct cliente), 1, p);
+
+            break;
+        }
+    }
+    fclose(p);
     printf("|---------------------------------------------------------------------------|\n");
 
     digite_zero();
@@ -184,10 +241,43 @@ int cli_del(){
     printf("|-----------------------------  D E L E T A R  -----------------------------|\n");
     printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
+    struct cliente novo;
+    FILE *p, *p_temp;
+    char cpf_ip[12];
+    bool aux = true;
+
+    printf("\nInforme o CPF do cliente a ser deletado: ");
+    while(aux == true){
+        scanf(" %11[^\n]", cpf_ip);
+        if(validarCPF(cpf_ip)){
+            aux = false;
+        }
+        else{
+            aux = true;
+            printf("CPF INVALIDO ");
+            printf("\nDigite novamente: ");
+        }
+    }
+
+    p = fopen("ARQUIVOS/clientes", "rb");
+    p_temp = fopen("ARQUIVOS/clientes_temp", "wb");
+    if (p == NULL || p_temp == NULL) {
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    } else {
+        while (fread(&novo, sizeof(struct cliente), 1, p) && !feof(p)) {
+            if (strcmp(novo.cpf, cpf_ip) != 0) {
+                fwrite(&novo, sizeof(struct cliente), 1, p_temp);
+            }
+        }
+        fclose(p);
+        fclose(p_temp);
+
+        remove("ARQUIVOS/clientes");
+        rename("ARQUIVOS/clientes_temp", "ARQUIVOS/clientes");
+
+        printf("Cliente deletado com sucesso!\n");
+    }
     printf("|---------------------------------------------------------------------------|\n");
 
     digite_zero();
