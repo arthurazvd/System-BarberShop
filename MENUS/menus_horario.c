@@ -57,19 +57,51 @@ int agd_pesquisa(){
     printf("|---------------------------------------------------------------------------|\n");
     printf("|----------------------------  P E S Q U I S A  ----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|---------------------------------------------------------------------------|\n");
-
-    int resp;
-    printf("\nD I G I T E   0   P A R A  V O L T A R : ");
-
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+    struct horario nh;
+    FILE *p;
+    char cpf_ip[12];
+    bool aux = true;
+    
+    limparBuffer();
+    printf("Informe o CPF do cliente: ");
+    while(aux == true){
+        scanf(" %11[^\n]", cpf_ip);
+        if(validarCPF(cpf_ip)){
+            aux = false;
+        }
+        else{
+            aux = true;
+            printf("CPF INVALIDO ");
+            printf("\nDigite novamente: ");
+        }
+    }
+    p = fopen("ARQUIVOS/horarios", "rb");
+    if(p == NULL){
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+    else{
+        while(fread(&nh, sizeof(struct horario), 1, p) && !feof(p)){
+            if(ferror(p)){
+            printf("\nERRO NA LEITURA\n");
+            }
+            else{
+                if(strcmp(nh.cpf_cli,cpf_ip)==0){
+                    printf("\nCPF [ %s ] ", nh.cpf_cli);
+                    printf("\nData [ %s ] ", nh.data);
+                    printf("\nHora [ %s ] ", nh.hora);
+                    printf("\nMinuto [ %s ] \n", nh.minuto);
+                    printf("\n|---------------------------------------------------------------------------|\n");
+                }
+            }
+        }
+        if(strcmp(nh.cpf_cli,cpf_ip) != 0){
+            printf("\nHORARIO NAO ENCONTRADO");
+            printf("\n|---------------------------------------------------------------------------|\n");
+        }
+    }
+    fclose(p);
+    digite_zero();
 }
 
 //Salvamento em arquivo feito com base nos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=TqbnYUUdGjw&t=281s

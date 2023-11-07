@@ -73,7 +73,7 @@ int cli_pesquisa(){
         exit(1);
     }
     else{
-        while(fread(&novo, sizeof(struct cliente), 1, p)){
+        while(fread(&novo, sizeof(struct cliente), 1, p) && !feof(p)){
             if(ferror(p)){
             printf("\nERRO NA LEITURA\n");
             }
@@ -83,16 +83,15 @@ int cli_pesquisa(){
                     printf("\nNome [ %s ] ", novo.nome);
                     printf("\nTelefone [ %s ] \n", novo.tel);
                     printf("\n|---------------------------------------------------------------------------|\n");
-                    limparBuffer();
-                    digite_zero();
-                    return 0;
                 }
             }
         }
+        if(strcmp(novo.cpf,cpf_ip) != 0){
+            printf("\nHORARIO NAO ENCONTRADO");
+            printf("\n|---------------------------------------------------------------------------|\n");
+        }
     }
     fclose(p);
-    printf("\nCLIENTE NAO ENCONTRADO");
-    printf("\n|---------------------------------------------------------------------------|\n");
     digite_zero();
 }
 

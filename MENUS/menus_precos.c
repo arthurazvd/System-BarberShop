@@ -56,19 +56,51 @@ int pre_pesquisa(){
     printf("|--------------------------  P E S Q U I S A  D E --------------------------|\n");
     printf("|------------------------------  P R E C O S  ------------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    struct precos pr;
+    FILE *p;
+    char id_pre[10];
+    bool aux = true;
+    
+    limparBuffer();
+    printf("Informe o ID do servico: ");
+    while(aux == true){
+        scanf(" %9[^\n]", id_pre);
 
-    int resp;
-    printf("\nD I G I T E   0   P A R A  V O L T A R : ");
-
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+        if(validarnumero(id_pre)){
+            aux = false;
+        }
+        else{
+            aux = true;
+            printf("ID INVALIDO ");
+            printf("\nDigite novamente: ");
+        }
+    }
+    p = fopen("ARQUIVOS/precos", "rb");
+    if(p == NULL){
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+    else{
+        while(fread(&pr, sizeof(struct precos), 1, p) && !feof(p)){
+            if(ferror(p)){
+            printf("\nERRO NA LEITURA\n");
+            }
+            else{
+                if(strcmp(pr.id,id_pre) == 0){
+                    printf("\nID [ %s ] ", pr.id);
+                    printf("\nServico [ %s ] ", pr.servico);
+                    printf("\nPreco R$ [ %s ] \n", pr.preco);
+                    printf("\n|---------------------------------------------------------------------------|\n");
+                }
+            }
+        }
+        if(strcmp(pr.id,id_pre) != 0){
+            printf("\nMAQUINA NAO ENCONTRADO");
+            printf("\n|---------------------------------------------------------------------------|\n");
+        }
+    }
+    fclose(p);
+    digite_zero();
 }
 //Salvamento em arquivo feito com base nos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=TqbnYUUdGjw&t=281s
 
@@ -136,14 +168,7 @@ int pre_cadas(){
         
     printf("|---------------------------------------------------------------------------|\n");
 
-    
-    int resp;
-    printf("\nD I G I T E   0   P A R A  V O L T A R : ");
-
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+    digite_zero();
 }
 
 int pre_edit(){
@@ -151,19 +176,38 @@ int pre_edit(){
     printf("|------------------------------  E D I T A R  ------------------------------|\n");
     printf("|------------------------------  P R E C O S  ------------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
+    struct precos pr;
+    FILE *p;
+    char id_pre[10];
+    bool aux = true;
+
+    printf("\nInforme o ID do servico a ser editado: ");
+    scanf(" %9[^\n]", id_pre);
+
+    p = fopen("ARQUIVOS/precos", "rb+");
+    if (p == NULL) {
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+
+    while (fread(&pr, sizeof(struct precos), 1, p) && !feof(p)) {
+
+        if (strcmp(pr.id, id_pre) == 0) {
+
+            printf("Informe o novo preco: ");
+            scanf(" %9[^\n]", pr.preco);
+
+            fseek(p, -sizeof(struct precos), SEEK_CUR);
+            fwrite(&pr, sizeof(struct precos), 1, p);
+
+            break;
+        }
+    }
+    fclose(p);
     printf("|---------------------------------------------------------------------------|\n");
 
-    int resp;
-    printf("\nD I G I T E   0   P A R A  V O L T A R : ");
+    digite_zero();
 
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
 }
 
 int pre_del(){
@@ -171,17 +215,45 @@ int pre_del(){
     printf("|-----------------------------  D E L E T A R  -----------------------------|\n");
     printf("|------------------------------  P R E C O S  ------------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
+    struct precos pr;
+    FILE *p, *p_temp;
+    char id_pre[10];
+    bool aux = true;
+
+    printf("\nInforme o ID do servico a ser deletado: ");
+    while (aux == true) {
+        scanf(" %9[^\n]", id_pre);
+        if (validarnumero(id_pre)) {
+            aux = false;
+        } else {
+            aux = true;
+            printf("ID INVALIDO ");
+            printf("\nDigite novamente: ");
+        }
+    }
+
+    p = fopen("ARQUIVOS/precos", "rb");
+    p_temp = fopen("ARQUIVOS/precos_temp", "wb");
+    if (p == NULL || p_temp == NULL) {
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    } else {
+        while (fread(&pr, sizeof(struct precos), 1, p) && !feof(p)) {
+            if (strcmp(pr.id, id_pre) != 0) {
+                fwrite(&pr, sizeof(struct precos), 1, p_temp);
+            }
+        }
+        fclose(p);
+        fclose(p_temp);
+
+        remove("ARQUIVOS/precos");
+        rename("ARQUIVOS/precos_temp", "ARQUIVOS/precos");
+
+        printf("Preco deletado com sucesso!\n");
+    }
+
     printf("|---------------------------------------------------------------------------|\n");
 
-    int resp;
-    printf("\nD I G I T E   0   P A R A  V O L T A R : ");
+    digite_zero();
 
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
 }
