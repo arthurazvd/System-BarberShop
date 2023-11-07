@@ -176,13 +176,7 @@ int agd_agendar(){
     
     printf("|---------------------------------------------------------------------------|\n");
 
-
-    int resp;
-    printf("\nD I G I T E   0   P A R A   V O L T A R : ");
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+    digite_zero();
 }
 
 int agd_edit(){
@@ -190,19 +184,73 @@ int agd_edit(){
     printf("|------------------------------  E D I T A R  ------------------------------|\n");
     printf("|-----------------------------  H O R A R I O  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
+    struct horario nh;    
+    FILE *p;
+    char cpf_ip[12];
+    bool aux = true;
+
+    printf("\nInforme o CPF do cliente a ter horario editado: ");
+    while(aux == true){
+        scanf(" %11[^\n]", cpf_ip);
+        if(validarCPF(cpf_ip)){
+            aux = false;
+        }
+        else{
+            aux = true;
+            printf("CPF INVALIDO ");
+            printf("\nDigite novamente: ");
+        }
+    }
+
+    p = fopen("ARQUIVOS/horarios", "rb+");
+    if (p == NULL) {
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+
+    while (fread(&nh, sizeof(struct horario), 1, p) && !feof(p)) {
+
+        if (strcmp(nh.cpf_cli, cpf_ip) == 0) {
+            printf("Informe o data a agendar ");
+            while(aux == false){
+                printf("\nData: ");
+                scanf(" %10[^\n]", nh.data);
+
+                if(validardata(nh.data)){
+                    aux = true;
+                }
+                else{
+                    aux = false;
+                    printf("DATA INVALIDO ");
+                    printf("\nDigite novamente: ");
+                }
+            }
+            printf("Informe o hora a agendar ");
+            while(aux == true){
+                printf("\nHora: ");
+                scanf(" %3[^\n]", nh.hora);
+                printf("Minuto: ");
+                scanf(" %3[^\n]", nh.minuto);
+                if(validarhora(nh.hora, nh.minuto)){
+                    aux = false;
+                }
+                else{
+                    aux = true;
+                    printf("HORA INVALIDO ");
+                    printf("\nDigite novamente: ");
+                }
+            }
+
+            fseek(p, -sizeof(struct horario), SEEK_CUR);
+            fwrite(&nh, sizeof(struct horario), 1, p);
+
+            break;
+        }
+    }
+    fclose(p);
     printf("|---------------------------------------------------------------------------|\n");
 
-    int resp;
-    printf("\nD I G I T E   0   P A R A  V O L T A R : ");
-
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+    digite_zero();
 }
 
 int agd_cancelamento(){
@@ -210,17 +258,44 @@ int agd_cancelamento(){
     printf("|----------------------------  C A N C E L A R  ----------------------------|\n");
     printf("|-----------------------------  H O R A R I O  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|                                                                           |\n");
+    struct horario nh;
+    FILE *p, *p_temp;
+    char cpf_ip[12];
+    bool aux = true;
+
+    printf("\nInforme o CPF do cliente a ter horario cancelado: ");
+    while(aux == true){
+        scanf(" %11[^\n]", cpf_ip);
+        if(validarCPF(cpf_ip)){
+            aux = false;
+        }
+        else{
+            aux = true;
+            printf("CPF INVALIDO ");
+            printf("\nDigite novamente: ");
+        }
+    }
+
+    p = fopen("ARQUIVOS/horarios", "rb");
+    p_temp = fopen("ARQUIVOS/horarios_temp", "wb");
+    if (p == NULL || p_temp == NULL) {
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    } else {
+        while (fread(&nh, sizeof(struct horario), 1, p) && !feof(p)) {
+            if (strcmp(nh.cpf_cli, cpf_ip) != 0) {
+                fwrite(&nh, sizeof(struct horario), 1, p_temp);
+            }
+        }
+        fclose(p);
+        fclose(p_temp);
+
+        remove("ARQUIVOS/horarios");
+        rename("ARQUIVOS/horarios_temp", "ARQUIVOS/horarios");
+
+        printf("Horario cancelado com sucesso!\n");
+    }
     printf("|---------------------------------------------------------------------------|\n");
 
-    int resp;
-    printf("\nD I G I T E   0   P A R A  V O L T A R : ");
-
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+    digite_zero();
 }
