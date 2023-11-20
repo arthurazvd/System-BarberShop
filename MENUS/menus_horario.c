@@ -4,53 +4,30 @@
 #include <string.h>
 #include "../UTILITARIOS/includes.h"
 
-// STRUCT
-
-struct horario{
-    char cpf_cli[12];
-    char data[11];
-    char hora[3];
-    char minuto[3];
-};
-
 //  SUBTELAS AGENDAMENTO
 
 //Leitor de arquivos adaptado dos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=nJrENSVTF94&t=3s
 
 int agd_horario(){
-    struct horario nh;
-    FILE *p;
     printf("|---------------------------------------------------------------------------|\n");
     printf("|----------------------------  H O R A R I O S  ----------------------------|\n");
     printf("|---------------------------  A G E N D A D O S  ---------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    p = fopen("ARQUIVOS/horarios", "a+b");
-    if(p == NULL){
-        printf("Erro ao abrir arquivo\n!");
-        exit(1);
+    printf("|                                                                           |\n");
+    printf("|                    1 - L I S T A R  P O R  D A T A                        |\n");
+    printf("|                    2 - L I S T A R  T U D O                               |\n");
+    printf("|                    0 - V O L T A R                                        |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+
+    switch(digite_opcao()){
+        case 1:
+            agd_fil_data();
+            break;
+        case 2:
+            agd_fil_tudo();
+            break;
     }
-    else{
-        while(fread(&nh, sizeof(struct horario), 1, p)){
-            if(ferror(p)){
-            printf("\nERRO NA LEITURA\n");
-            }
-            else{
-                printf("\nCPF [ %s ] ", nh.cpf_cli);
-                printf("\nData [ %s ] ", nh.data);
-                printf("\nHora [ %s ] ", nh.hora);
-                printf("\nMinuto [ %s ] \n", nh.minuto);
-                printf("\n|---------------------------------------------------------------------------|\n");
-            }
-        }
-    }
-
-    int resp;
-    printf("\nD I G I T E   0   P A R A  V O L T A R : ");
-
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
 }
 
 int agd_pesquisa(){

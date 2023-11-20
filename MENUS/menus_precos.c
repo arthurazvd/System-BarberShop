@@ -6,11 +6,7 @@
 
 // STRUCT
 
-struct precos{
-    char id[10];
-    char servico[25];
-    char preco[10];
-};
+
 
 //  SUBTELAS TABELA DE PRECOS
 //Leitor de arquivos adaptado dos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=nJrENSVTF94&t=3s
@@ -20,35 +16,21 @@ int pre_lista(){
     printf("|---------------------------  T A B E L A  D E  ----------------------------|\n");
     printf("|------------------------------  P R E C O S  ------------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    struct precos pr;
-    FILE *p;
-    p = fopen("ARQUIVOS/precos", "a+b");
-    if(p == NULL){
-        printf("Erro ao abrir arquivo\n!");
-        exit(1);
+    printf("|                                                                           |\n");
+    printf("|                 1 - L I S T A R  P O R  S E R V I C O                     |\n");
+    printf("|                 2 - L I S T A R  T U D O                                  |\n");
+    printf("|                 0 - V O L T A R                                           |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
+
+    switch(digite_opcao()){
+        case 1:
+            pre_fil_serv();
+            break;
+        case 2:
+            pre_fil_tudo();
+            break;
     }
-    else{
-        while(fread(&pr, sizeof(struct precos), 1, p)){
-            if(ferror(p)){
-            printf("\nERRO NA LEITURA\n");
-            }
-            else{
-                printf("\nID [ %s ] ", pr.id);
-                printf("\nServico [ %s ] ", pr.servico);
-                printf("\nPreco R$ [ %s ] \n", pr.preco);
-                printf("\n|---------------------------------------------------------------------------|\n");
-
-            }
-        }
-    }
-
-    int resp;
-    printf("\nD I G I T E   0   P A R A  V O L T A R : ");
-
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
 }
 
 int pre_pesquisa(){

@@ -4,13 +4,6 @@
 #include <string.h>
 #include "../UTILITARIOS/includes.h"
 
-// STRUCT
-
-struct maquinas{
-    char id[10];
-    char nome[20];
-};
-
 //  SUBTELAS MAQUINAS
 //Leitor de arquivos adaptado dos slides e nessa video aula do Professor Romerson : https://www.youtube.com/watch?v=nJrENSVTF94&t=3s
 
@@ -39,13 +32,8 @@ int maq_lista(){
         }
     }
 
-    int resp;
-    printf("\nD I G I T E   0   P A R A  V O L T A R : ");
-
-    scanf("%d", &resp);
-    system("clear");
-
-    return resp;
+    fclose(p);
+    digite_zero();
 }
 
 int maq_pesquisa(){

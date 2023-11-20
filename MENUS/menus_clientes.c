@@ -4,44 +4,29 @@
 #include <string.h>
 #include "../UTILITARIOS/includes.h"
 
-// STRUCT
-
-struct cliente{
-    char cpf[12];
-    char nome[100];
-    char tel[12];
-};
 
 //  SUBTELAS CLIENTES
-//Leitor de arquivos adaptado dos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=nJrENSVTF94&t=3s
 
+//Leitor de arquivos adaptado dos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=nJrENSVTF94&t=3s
 int cli_lista(){
     printf("|---------------------------------------------------------------------------|\n");
     printf("|----------------------------  C L I E N T E S  ----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    struct cliente novo;
-    FILE *p;
-    p = fopen("ARQUIVOS/clientes", "rb");
-    if(p == NULL){
-        printf("Erro ao abrir arquivo\n!");
-        exit(1);
-    }
-    else{
-        while(fread(&novo, sizeof(struct cliente), 1, p)){
-            if(ferror(p)){
-            printf("\nERRO NA LEITURA\n");
-            }
-            else{
-                printf("\nCPF [ %s ] ", novo.cpf);
-                printf("\nNome [ %s ] ", novo.nome);
-                printf("\nTelefone [ %s ] \n", novo.tel);
-                printf("\n|---------------------------------------------------------------------------|\n");
+    printf("|                                                                           |\n");
+    printf("|                    1 - L I S T A R  P O R  N O M E                        |\n");
+    printf("|                    2 - L I S T A R  T U D O                               |\n");
+    printf("|                    0 - V O L T A R                                        |\n");
+    printf("|                                                                           |\n");
+    printf("|---------------------------------------------------------------------------|\n");
 
-            }
-        }
+    switch(digite_opcao()){
+        case 1:
+            cli_fil_nome();
+            break;
+        case 2:
+            cli_fil_tudo();
+            break;
     }
-    fclose(p);
-    digite_zero();
 }
 
 int cli_pesquisa(){

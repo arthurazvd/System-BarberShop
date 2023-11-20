@@ -15,3 +15,8 @@ sudo apt upgrade
 sudo apt install make
 
 Execute esses comando linha por linha e espero que dê certo.
+
+
+##################################################
+Atualização:
+A parte de filtros se encontra nos menus de listagem de Clientes, Agendamento e Precos
