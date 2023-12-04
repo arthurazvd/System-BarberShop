@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include <string.h>
+#include "includes.h"
 
 
 //Função de validar nome - desenvolvido a partir do chatGPT - foi testada e aprovada
@@ -184,4 +185,43 @@ int validarnumero(char *c) {
 void limparBuffer(void) {
     int c;
     while ((c = getchar()) != '\n' && c != EOF) { }
+}
+
+//Função para verificar Cliente
+int checkcli(char *cpf){
+  struct cliente novo;
+  FILE *p;
+  p = fopen("ARQUIVOS/clientes", "rb");
+  while(fread(&novo, sizeof(struct cliente), 1, p) && !feof(p)){
+      if(ferror(p)){
+      printf("\nERRO NA LEITURA\n");
+      }
+      else{
+          if(strcmp(novo.cpf,cpf)==0){
+              fclose(p);
+              return 1;
+          }
+      }
+  }
+  fclose(p);
+  return 0;
+}
+
+int checkidpre(char *id){
+  struct precos pr;
+  FILE *p;
+  p = fopen("ARQUIVOS/precos", "rb");
+  while(fread(&pr, sizeof(struct precos), 1, p) && !feof(p)){
+      if(ferror(p)){
+      printf("\nERRO NA LEITURA\n");
+      }
+      else{
+          if(strcmp(pr.id,id)==0){
+              fclose(p);
+              return 1;
+          }
+      }
+  }
+  fclose(p);
+  return 0;
 }

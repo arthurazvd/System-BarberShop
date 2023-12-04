@@ -4,10 +4,6 @@
 #include <string.h>
 #include "../UTILITARIOS/includes.h"
 
-// STRUCT
-
-
-
 //  SUBTELAS TABELA DE PRECOS
 //Leitor de arquivos adaptado dos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=nJrENSVTF94&t=3s
 
@@ -49,7 +45,14 @@ int pre_pesquisa(){
         scanf(" %9[^\n]", id_pre);
 
         if(validarnumero(id_pre)){
-            aux = false;
+            if(pr.status == 1){
+                aux = false;
+            }
+            else{
+                aux = true;
+                printf("ID NAO ENCONTRADO ");
+                printf("\nDigite novamente: ");
+            }
         }
         else{
             aux = true;
@@ -107,7 +110,15 @@ int pre_cadas(){
             while(aux == true){
                 scanf(" %9[^\n]", pr.id);
                 if(validarnumero(pr.id)){
-                    aux = false;
+                    if (checkidpre(pr.id))
+                    {
+                        aux = true;
+                        printf("ID JA CADASTRADO ");
+                        printf("\nDigite novamente: ");
+                    }
+                    else{
+                        aux = false;
+                    }
                 }
                 else{
                     aux = true;
@@ -139,6 +150,9 @@ int pre_cadas(){
                     printf("\nDigite novamente: ");
                 }
             }
+
+            pr.status = 1;
+
             fwrite(&pr, sizeof(struct precos), 1, p);
             if (ferror(p)){
                 printf("\nERRO NA GRAVACAO\n");
@@ -231,7 +245,7 @@ int pre_del(){
     printf("|------------------------------  P R E C O S  ------------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
     struct precos pr;
-    FILE *p, *p_temp;
+    FILE *p;
     char id_pre[10];
     bool aux = true;
 
@@ -247,26 +261,27 @@ int pre_del(){
         }
     }
 
-    p = fopen("ARQUIVOS/precos", "rb");
-    p_temp = fopen("ARQUIVOS/precos_temp", "wb");
-    if (p == NULL || p_temp == NULL) {
+    p = fopen("ARQUIVOS/precos", "rb+");
+    if (p == NULL) {
         printf("Erro ao abrir arquivo\n!");
         exit(1);
     } else {
         while (fread(&pr, sizeof(struct precos), 1, p) && !feof(p)) {
-            if (strcmp(pr.id, id_pre) != 0) {
-                fwrite(&pr, sizeof(struct precos), 1, p_temp);
+            if (strcmp(pr.id, id_pre) == 0) {
+
+                pr.status = 0;
+
+                fseek(p, -sizeof(struct precos), SEEK_CUR);
+                fwrite(&pr, sizeof(struct precos), 1, p);
+
+                printf("Preco deletado com sucesso!\n");
             }
         }
-        fclose(p);
-        fclose(p_temp);
-
-        remove("ARQUIVOS/precos");
-        rename("ARQUIVOS/precos_temp", "ARQUIVOS/precos");
-
-        printf("Preco deletado com sucesso!\n");
+        if (strcmp(pr.id, id_pre) != 0) {
+            printf("Preco nao encontrado!\n");
+        }
     }
-
+    fclose(p);
     printf("|---------------------------------------------------------------------------|\n");
 
     digite_zero();

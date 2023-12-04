@@ -4,7 +4,6 @@
 #include <string.h>
 #include "../UTILITARIOS/includes.h"
 
-
 //  SUBTELAS CLIENTES
 
 //Leitor de arquivos adaptado dos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=nJrENSVTF94&t=3s
@@ -44,7 +43,14 @@ int cli_pesquisa(){
     while(aux == true){
         scanf(" %11[^\n]", cpf_ip);
         if(validarCPF(cpf_ip)){
-            aux = false;
+            if(novo.status == 1){
+                aux = false;
+            }
+            else{
+                aux = true;
+                printf("CPF NAO ENCONTRADO ");
+                printf("\nDigite novamente: ");
+            }
         }
         else{
             aux = true;
@@ -96,27 +102,36 @@ int cli_cadas(){
         exit(1);
     }
     else{
-        printf("Informe o nome do cliente: ");
+        printf("Informe o CPF do cliente: ");
         while(aux == true){
-            scanf(" %99[^\n]", novo.nome);
-            if(validarnome(novo.nome)){
-                aux = false;
+            scanf(" %11[^\n]", novo.cpf);
+            if(validarCPF(novo.cpf)){
+                if (checkcli(novo.cpf))
+                {
+                    aux = true;
+                    printf("CPF JA CADASTRADO ");
+                    printf("\nDigite novamente: ");
+                }
+                else{
+                    aux = false;
+                }
             }
             else{
                 aux = true;
-                printf("NOME INVALIDO ");
+                printf("CPF INVALIDO ");
                 printf("\nDigite novamente: ");
             }
         }
-        printf("Informe o CPF do cliente: ");
+        limparBuffer();
+        printf("Informe o nome do cliente: ");
         while(aux == false){
-            scanf(" %11[^\n]", novo.cpf);
-            if(validarCPF(novo.cpf)){
+            scanf(" %99[^\n]", novo.nome);
+            if(validarnome(novo.nome)){
                 aux = true;
             }
             else{
                 aux = false;
-                printf("CPF INVALIDO ");
+                printf("NOME INVALIDO ");
                 printf("\nDigite novamente: ");
             }
         }
@@ -132,6 +147,7 @@ int cli_cadas(){
                 printf("\nDigite novamente: ");
             }
         }
+        novo.status = 1;
 
         fwrite(&novo, sizeof(struct cliente), 1, p);
         if (ferror(p)){
@@ -226,8 +242,8 @@ int cli_del(){
     printf("|-----------------------------  D E L E T A R  -----------------------------|\n");
     printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-    struct cliente novo;
-    FILE *p, *p_temp;
+        struct cliente novo;
+    FILE *p;
     char cpf_ip[12];
     bool aux = true;
 
@@ -244,25 +260,27 @@ int cli_del(){
         }
     }
 
-    p = fopen("ARQUIVOS/clientes", "rb");
-    p_temp = fopen("ARQUIVOS/clientes_temp", "wb");
-    if (p == NULL || p_temp == NULL) {
+    p = fopen("ARQUIVOS/clientes", "rb+");
+    if (p == NULL) {
         printf("Erro ao abrir arquivo\n!");
         exit(1);
-    } else {
-        while (fread(&novo, sizeof(struct cliente), 1, p) && !feof(p)) {
-            if (strcmp(novo.cpf, cpf_ip) != 0) {
-                fwrite(&novo, sizeof(struct cliente), 1, p_temp);
-            }
-        }
-        fclose(p);
-        fclose(p_temp);
-
-        remove("ARQUIVOS/clientes");
-        rename("ARQUIVOS/clientes_temp", "ARQUIVOS/clientes");
-
-        printf("Cliente deletado com sucesso!\n");
     }
+
+    while (fread(&novo, sizeof(struct cliente), 1, p) && !feof(p)) {
+
+        if (strcmp(novo.cpf, cpf_ip) == 0) {
+            limparBuffer();
+
+            novo.status = 0;
+
+            fseek(p, -sizeof(struct cliente), SEEK_CUR);
+            fwrite(&novo, sizeof(struct cliente), 1, p);
+
+            printf("Cliente deletado com sucesso!\n");
+            break;
+        }
+    }
+    fclose(p);
     printf("|---------------------------------------------------------------------------|\n");
 
     digite_zero();

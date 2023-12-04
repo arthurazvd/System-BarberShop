@@ -9,5 +9,8 @@ int validardata();
 int validarhora();
 int validarnumero();
 void limparBuffer();
+int checkcli();
+int checkidpre();
+
 
 #endif

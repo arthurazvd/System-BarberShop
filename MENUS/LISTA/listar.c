@@ -40,11 +40,13 @@ int cli_fil_nome(){
             printf("\nERRO NA LEITURA\n");
             }
             else{
-                if(strcmp(novo.nome,nome_ip)==0){
-                    printf("\nCPF [ %s ] ", novo.cpf);
-                    printf("\nNome [ %s ] ", novo.nome);
-                    printf("\nTelefone [ %s ] \n", novo.tel);
-                    printf("\n|---------------------------------------------------------------------------|\n");
+                if(novo.status == 1){
+                    if(strcmp(novo.nome,nome_ip)==0){
+                        printf("\nCPF [ %s ] ", novo.cpf);
+                        printf("\nNome [ %s ] ", novo.nome);
+                        printf("\nTelefone [ %s ] \n", novo.tel);
+                        printf("\n|---------------------------------------------------------------------------|\n");
+                    }
                 }
             }
         }
@@ -74,11 +76,14 @@ int cli_fil_tudo(){
             printf("\nERRO NA LEITURA\n");
             }
             else{
-                printf("\nCPF [ %s ] ", novo.cpf);
-                printf("\nNome [ %s ] ", novo.nome);
-                printf("\nTelefone [ %s ] \n", novo.tel);
-                printf("\n|---------------------------------------------------------------------------|\n");
+                if (novo.status == 1)
+                {
+                    printf("\nCPF [ %s ] ", novo.cpf);
+                    printf("\nNome [ %s ] ", novo.nome);
+                    printf("\nTelefone [ %s ] \n", novo.tel);
 
+                    printf("\n|---------------------------------------------------------------------------|\n");
+                }
             }
         }
     }
@@ -206,12 +211,14 @@ int pre_fil_serv(){
             printf("\nERRO NA LEITURA\n");
             }
             else{
-                if(strcmp(pr.servico,serv_ip) == 0){
+                if (pr.status == 1)
+                {
+                    if(strcmp(pr.servico,serv_ip) == 0){
                     printf("\nID [ %s ] ", pr.id);
                     printf("\nServico [ %s ] ", pr.servico);
                     printf("\nPreco R$ [ %s ] \n", pr.preco);
                     printf("\n|---------------------------------------------------------------------------|\n");
-                }
+                }                }
             }
         }
         if(strcmp(pr.servico,serv_ip) != 0){
@@ -241,11 +248,13 @@ int pre_fil_tudo(){
             printf("\nERRO NA LEITURA\n");
             }
             else{
-                printf("\nID [ %s ] ", pr.id);
-                printf("\nServico [ %s ] ", pr.servico);
-                printf("\nPreco R$ [ %s ] \n", pr.preco);
-                printf("\n|---------------------------------------------------------------------------|\n");
-
+                if (pr.status == 1)
+                {
+                    printf("\nID [ %s ] ", pr.id);
+                    printf("\nServico [ %s ] ", pr.servico);
+                    printf("\nPreco R$ [ %s ] \n", pr.preco);
+                    printf("\n|---------------------------------------------------------------------------|\n");
+                }
             }
         }
     }
