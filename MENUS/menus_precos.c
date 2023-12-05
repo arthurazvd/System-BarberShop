@@ -45,19 +45,18 @@ int pre_pesquisa(){
         scanf(" %9[^\n]", id_pre);
 
         if(validarnumero(id_pre)){
-            if(pr.status == 1){
-                aux = false;
-            }
-            else{
-                aux = true;
-                printf("ID NAO ENCONTRADO ");
-                printf("\nDigite novamente: ");
-            }
+            aux = false;
         }
         else{
             aux = true;
             printf("ID INVALIDO ");
-            printf("\nDigite novamente: ");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
+            printf("\nDigite novamente: ");;
         }
     }
     p = fopen("ARQUIVOS/precos", "rb");
@@ -71,17 +70,15 @@ int pre_pesquisa(){
             printf("\nERRO NA LEITURA\n");
             }
             else{
-                if(strcmp(pr.id,id_pre) == 0){
+                if (pr.status == 1)
+                {
+                    if(strcmp(pr.id,id_pre) == 0){
                     printf("\nID [ %s ] ", pr.id);
                     printf("\nServico [ %s ] ", pr.servico);
                     printf("\nPreco R$ [ %s ] \n", pr.preco);
                     printf("\n|---------------------------------------------------------------------------|\n");
-                }
+                }                }
             }
-        }
-        if(strcmp(pr.id,id_pre) != 0){
-            printf("\nPRECO NAO ENCONTRADO");
-            printf("\n|---------------------------------------------------------------------------|\n");
         }
     }
     fclose(p);
@@ -114,6 +111,12 @@ int pre_cadas(){
                     {
                         aux = true;
                         printf("ID JA CADASTRADO ");
+                        int continuar = des_continuar();
+                        if (continuar == 1){
+                            aux = true;
+                        }else{
+                            return 0;
+                        }
                         printf("\nDigite novamente: ");
                     }
                     else{
@@ -123,6 +126,12 @@ int pre_cadas(){
                 else{
                     aux = true;
                     printf("ID INVALIDO ");
+                    int continuar = des_continuar();
+                    if (continuar == 1){
+                        aux = true;
+                    }else{
+                        return 0;
+                    }
                     printf("\nDigite novamente: ");
                 }
             }
@@ -135,6 +144,12 @@ int pre_cadas(){
                 else{
                     aux = false;
                     printf("SERVICO INVALIDO ");
+                    int continuar = des_continuar();
+                    if (continuar == 1){
+                        aux = false;
+                    }else{
+                        return 0;
+                    }
                     printf("\nDigite novamente: ");
                 }
             }
@@ -147,6 +162,12 @@ int pre_cadas(){
                 else{
                     aux = true;
                     printf("PRECO INVALIDO ");
+                    int continuar = des_continuar();
+                    if (continuar == 1){
+                        aux = true;
+                    }else{
+                        return 0;
+                    }
                     printf("\nDigite novamente: ");
                 }
             }
@@ -186,6 +207,12 @@ int pre_edit(){
         } else {
             aux = true;
             printf("ID INVALIDO ");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
             printf("\nDigite novamente: ");
         }
     }
@@ -206,6 +233,12 @@ int pre_edit(){
                     } else {
                         aux = false;
                         printf("SERVICO INVALIDO ");
+                        int continuar = des_continuar();
+                        if (continuar == 1){
+                            aux = false;
+                        }else{
+                            return 0;
+                        }
                         printf("\nDigite novamente: ");
                     }
                 }
@@ -218,6 +251,12 @@ int pre_edit(){
                     } else {
                         aux = true;
                         printf("PRECO INVALIDO ");
+                        int continuar = des_continuar();
+                        if (continuar == 1){
+                            aux = true;
+                        }else{
+                            return 0;
+                        }
                         printf("\nDigite novamente: ");
                     }
                 }
@@ -257,6 +296,12 @@ int pre_del(){
         } else {
             aux = true;
             printf("ID INVALIDO ");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
             printf("\nDigite novamente: ");
         }
     }

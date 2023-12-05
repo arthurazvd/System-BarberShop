@@ -49,6 +49,12 @@ int agd_pesquisa(){
         else{
             aux = true;
             printf("CPF INVALIDO ");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
             printf("\nDigite novamente: ");
         }
     }
@@ -68,13 +74,10 @@ int agd_pesquisa(){
                     printf("\nData [ %s ] ", nh.data);
                     printf("\nHora [ %s ] ", nh.hora);
                     printf("\nMinuto [ %s ] \n", nh.minuto);
+                    print_id(nh.id_preco);
                     printf("\n|---------------------------------------------------------------------------|\n");
                 }
             }
-        }
-        if(strcmp(nh.cpf_cli,cpf_ip) != 0){
-            printf("\nHORARIO NAO ENCONTRADO");
-            printf("\n|---------------------------------------------------------------------------|\n");
         }
     }
     fclose(p);
@@ -107,10 +110,16 @@ int agd_agendar(){
             else{
                 aux = true;
                 printf("CPF INVALIDO ");
+                int continuar = des_continuar();
+                if (continuar == 1){
+                    aux = true;
+                }else{
+                    return 0;
+                }
                 printf("\nDigite novamente: ");
             }
         }
-        printf("Informe o data a agendar ");
+        printf("Informe a data a agendar ");
         //aqui ele vai ter que validar se aquele horario está disponivel 
         while(aux == false){
             printf("\nData: ");
@@ -122,10 +131,16 @@ int agd_agendar(){
             else{
                 aux = false;
                 printf("DATA INVALIDO ");
+                int continuar = des_continuar();
+                if (continuar == 1){
+                    aux = false;
+                }else{
+                    return 0;
+                }
                 printf("\nDigite novamente: ");
             }
         }
-        printf("Informe o hora a agendar ");
+        printf("Informe a hora a agendar ");
         //aqui ele vai ter que validar se aquele horario está disponivel 
         while(aux == true){
             printf("\nHora: ");
@@ -138,6 +153,38 @@ int agd_agendar(){
             else{
                 aux = true;
                 printf("HORA INVALIDO ");
+                int continuar = des_continuar();
+                if (continuar == 1){
+                    aux = true;
+                }else{
+                    return 0;
+                }
+                printf("\nDigite novamente: ");
+            }
+        }
+        printf("Informe o ID do serviço ");
+        //aqui ele vai ter que validar se aquele horario está disponivel 
+        while(aux == false){
+            printf("\nID: ");
+            scanf(" %3[^\n]", nh.id_preco);
+            if(validarnumero(nh.id_preco)){
+                if (checkidpre(nh.id_preco))
+                {
+                    aux = true;
+                }
+                else{
+                    aux = false;
+                }
+            }
+            else{
+                aux = false;
+                printf("ID INVALIDO ");
+                int continuar = des_continuar();
+                if (continuar == 1){
+                    aux = false;
+                }else{
+                    return 0;
+                }
                 printf("\nDigite novamente: ");
             }
         }
@@ -175,6 +222,12 @@ int agd_edit(){
         else{
             aux = true;
             printf("CPF INVALIDO ");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
             printf("\nDigite novamente: ");
         }
     }
@@ -199,6 +252,12 @@ int agd_edit(){
                 else{
                     aux = false;
                     printf("DATA INVALIDO ");
+                    int continuar = des_continuar();
+                    if (continuar == 1){
+                        aux = false;
+                    }else{
+                        return 0;
+                    }
                     printf("\nDigite novamente: ");
                 }
             }
@@ -214,6 +273,12 @@ int agd_edit(){
                 else{
                     aux = true;
                     printf("HORA INVALIDO ");
+                    int continuar = des_continuar();
+                    if (continuar == 1){
+                        aux = true;
+                    }else{
+                        return 0;
+                    }
                     printf("\nDigite novamente: ");
                 }
             }
@@ -249,6 +314,12 @@ int agd_cancelamento(){
         else{
             aux = true;
             printf("CPF INVALIDO ");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
             printf("\nDigite novamente: ");
         }
     }

@@ -37,24 +37,24 @@ int cli_pesquisa(){
     FILE *p;
     char cpf_ip[12];
     bool aux = true;
+
     
     limparBuffer();
     printf("Informe o CPF do cliente: ");
     while(aux == true){
-        scanf(" %11[^\n]", cpf_ip);
+        scanf(" %12[^\n]", cpf_ip);
         if(validarCPF(cpf_ip)){
-            if(novo.status == 1){
-                aux = false;
-            }
-            else{
-                aux = true;
-                printf("CPF NAO ENCONTRADO ");
-                printf("\nDigite novamente: ");
-            }
+            aux = false;
         }
         else{
             aux = true;
             printf("CPF INVALIDO ");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
             printf("\nDigite novamente: ");
         }
     }
@@ -69,17 +69,15 @@ int cli_pesquisa(){
             printf("\nERRO NA LEITURA\n");
             }
             else{
-                if(strcmp(novo.cpf,cpf_ip)==0){
-                    printf("\nCPF [ %s ] ", novo.cpf);
-                    printf("\nNome [ %s ] ", novo.nome);
-                    printf("\nTelefone [ %s ] \n", novo.tel);
-                    printf("\n|---------------------------------------------------------------------------|\n");
+                if(novo.status == 1){
+                    if(strcmp(novo.cpf,cpf_ip)==0){
+                        printf("\nCPF [ %s ] ", novo.cpf);
+                        printf("\nNome [ %s ] ", novo.nome);
+                        printf("\nTelefone [ %s ] \n", novo.tel);
+                        printf("\n|---------------------------------------------------------------------------|\n");
+                    }
                 }
             }
-        }
-        if(strcmp(novo.cpf,cpf_ip) != 0){
-            printf("\nCLIENTE NAO ENCONTRADO");
-            printf("\n|---------------------------------------------------------------------------|\n");
         }
     }
     fclose(p);
@@ -88,13 +86,13 @@ int cli_pesquisa(){
 
 //Salvamento em arquivo feito com base nos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=TqbnYUUdGjw&t=281s
 int cli_cadas(){
-    struct cliente novo;
-    FILE *p;
-    bool aux = true;
     printf("|---------------------------------------------------------------------------|\n");
     printf("|--------------------------  C A D A S T R O  D E  -------------------------|\n");
     printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
+    struct cliente novo;
+    FILE *p;
+    bool aux = true;
 
     p = fopen("ARQUIVOS/clientes", "a+b");
     if (p == NULL){
@@ -110,6 +108,12 @@ int cli_cadas(){
                 {
                     aux = true;
                     printf("CPF JA CADASTRADO ");
+                    int continuar = des_continuar();
+                    if (continuar == 1){
+                        aux = true;
+                    }else{
+                        return 0;
+                    }
                     printf("\nDigite novamente: ");
                 }
                 else{
@@ -119,6 +123,12 @@ int cli_cadas(){
             else{
                 aux = true;
                 printf("CPF INVALIDO ");
+                int continuar = des_continuar();
+                if (continuar == 1){
+                    aux = true;
+                }else{
+                    return 0;
+                }
                 printf("\nDigite novamente: ");
             }
         }
@@ -132,6 +142,12 @@ int cli_cadas(){
             else{
                 aux = false;
                 printf("NOME INVALIDO ");
+                int continuar = des_continuar();
+                if (continuar == 1){
+                    aux = false;
+                }else{
+                    return 0;
+                }
                 printf("\nDigite novamente: ");
             }
         }
@@ -144,6 +160,13 @@ int cli_cadas(){
             else{
                 aux = true;
                 printf("TELEFONE INVALIDO ");
+                int continuar = des_continuar();
+
+                if (continuar == 1){
+                    aux = true;
+                }else{
+                    return 0;
+                }
                 printf("\nDigite novamente: ");
             }
         }
@@ -184,6 +207,12 @@ int cli_edit(){
         else{
             aux = true;
             printf("CPF INVALIDO ");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
             printf("\nDigite novamente: ");
         }
     }
@@ -207,6 +236,12 @@ int cli_edit(){
                 else{
                     aux = false;
                     printf("NOME INVALIDO ");
+                    int continuar = des_continuar();
+                    if (continuar == 1){
+                        aux = true;
+                    }else{
+                        return 0;
+                    }
                     printf("\nDigite novamente: ");
                 }
             }
@@ -220,6 +255,12 @@ int cli_edit(){
                 else{
                     aux = true;
                     printf("TELEFONE INVALIDO ");
+                    int continuar = des_continuar();
+                    if (continuar == 1){
+                        aux = true;
+                    }else{
+                        return 0;
+                    }
                     printf("\nDigite novamente: ");
                 }
             }
@@ -242,7 +283,7 @@ int cli_del(){
     printf("|-----------------------------  D E L E T A R  -----------------------------|\n");
     printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
-        struct cliente novo;
+    struct cliente novo;
     FILE *p;
     char cpf_ip[12];
     bool aux = true;
@@ -256,6 +297,12 @@ int cli_del(){
         else{
             aux = true;
             printf("CPF INVALIDO ");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
             printf("\nDigite novamente: ");
         }
     }

@@ -28,3 +28,14 @@ int digite_zero(){
 
     return resp;
 }
+
+int continuar(){
+    int resp;
+    printf("\n|---------------------------------------------------------------------------|\n");
+    printf("\nD E S E J A   T E N T A R   N O V A M E N T E ? ");
+    printf("\nD I G I T E   1   P A R A   S I M   O U   0   P A R A   N A O : ");
+    scanf("%d", &resp);
+    system("clear");
+
+    return resp;
+}

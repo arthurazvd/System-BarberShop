@@ -11,6 +11,8 @@ int validarnumero();
 void limparBuffer();
 int checkcli();
 int checkidpre();
+void print_id();
+int des_continuar();
 
 
 #endif

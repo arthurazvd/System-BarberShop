@@ -57,6 +57,12 @@ int maq_pesquisa(){
         else{
             aux = true;
             printf("ID INVALIDO ");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
             printf("\nDigite novamente: ");
         }
     }
@@ -77,10 +83,6 @@ int maq_pesquisa(){
                     printf("\n|---------------------------------------------------------------------------|\n");
                 }
             }
-        }
-        if(strcmp(maq.id,id_maq) != 0){
-            printf("\nMAQUINA NAO ENCONTRADO");
-            printf("\n|---------------------------------------------------------------------------|\n");
         }
     }
     fclose(p);
@@ -112,6 +114,12 @@ int maq_cadas(){
                 else{
                     aux = true;
                     printf("ID INVALIDO ");
+                    int continuar = des_continuar();
+                    if (continuar == 1){
+                        aux = true;
+                    }else{
+                        return 0;
+                    }
                     printf("\nDigite novamente: ");
                 }
             }
@@ -150,6 +158,12 @@ int maq_edit(){
         } else {
             aux = true;
             printf("ID INVALIDO ");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
             printf("\nDigite novamente: ");
         }
     }
@@ -200,6 +214,12 @@ int maq_del(){
         } else {
             aux = true;
             printf("ID INVALIDO ");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
             printf("\nDigite novamente: ");
         }
     }

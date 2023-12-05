@@ -17,7 +17,7 @@ int cli_fil_nome(){
     bool aux = true;
     
     limparBuffer();
-    printf("Informe o CPF do cliente: ");
+    printf("Informe o nome do cliente: ");
     while(aux == true){
         scanf(" %99[^\n]", nome_ip);
         if(validarnome(nome_ip)){
@@ -26,6 +26,12 @@ int cli_fil_nome(){
         else{
             aux = true;
             printf("NOME INVALIDO ");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
             printf("\nDigite novamente: ");
         }
     }
@@ -49,10 +55,6 @@ int cli_fil_nome(){
                     }
                 }
             }
-        }
-        if(strcmp(novo.nome,nome_ip) != 0){
-            printf("\nCLIENTE NAO ENCONTRADO");
-            printf("\n|---------------------------------------------------------------------------|\n");
         }
     }
     fclose(p);
@@ -112,6 +114,12 @@ int agd_fil_data(){
         else{
             aux = true;
             printf("DATA INVALIDA");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
             printf("\nDigite novamente: ");
         }
     }
@@ -134,10 +142,6 @@ int agd_fil_data(){
                     printf("\n|---------------------------------------------------------------------------|\n");
                 }
             }
-        }
-        if(strcmp(nh.data,data_ip) != 0){
-            printf("\nHORARIO NAO ENCONTRADO");
-            printf("\n|---------------------------------------------------------------------------|\n");
         }
     }
     fclose(p);
@@ -197,6 +201,12 @@ int pre_fil_serv(){
         else{
             aux = true;
             printf("SERVICO INVALIDO ");
+            int continuar = des_continuar();
+            if (continuar == 1){
+                aux = true;
+            }else{
+                return 0;
+            }
             printf("\nDigite novamente: ");
         }
     }
@@ -220,10 +230,6 @@ int pre_fil_serv(){
                     printf("\n|---------------------------------------------------------------------------|\n");
                 }                }
             }
-        }
-        if(strcmp(pr.servico,serv_ip) != 0){
-            printf("\nPRECO NAO ENCONTRADO");
-            printf("\n|---------------------------------------------------------------------------|\n");
         }
     }
     fclose(p);

@@ -7,4 +7,6 @@ int digite_volte();
 
 int digite_zero();
 
+int continuar();
+
 #endif
