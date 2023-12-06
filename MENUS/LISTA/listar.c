@@ -135,10 +135,14 @@ int agd_fil_data(){
             }
             else{
                 if(strcmp(nh.data,data_ip)==0){
+                    printf("\nCLIENTE");
                     printf("\nCPF [ %s ] ", nh.cpf_cli);
+                    print_cli(nh.cpf_cli);
+                    printf("\nAGENDA");
                     printf("\nData [ %s ] ", nh.data);
                     printf("\nHora [ %s ] ", nh.hora);
-                    printf("\nMinuto [ %s ] \n", nh.minuto);
+                    printf("\nMinuto [ %s ]", nh.minuto);
+                    print_id(nh.id_preco);
                     printf("\n|---------------------------------------------------------------------------|\n");
                 }
             }
@@ -166,10 +170,14 @@ int agd_fil_tudo(){
             printf("\nERRO NA LEITURA\n");
             }
             else{
+                printf("\nCLIENTE");
                 printf("\nCPF [ %s ] ", nh.cpf_cli);
+                print_cli(nh.cpf_cli);
+                printf("\nAGENDA");
                 printf("\nData [ %s ] ", nh.data);
                 printf("\nHora [ %s ] ", nh.hora);
-                printf("\nMinuto [ %s ] \n", nh.minuto);
+                printf("\nMinuto [ %s ]", nh.minuto);
+                print_id(nh.id_preco);
                 printf("\n|---------------------------------------------------------------------------|\n");
             }
         }
@@ -267,4 +275,58 @@ int pre_fil_tudo(){
 
     fclose(p);
     digite_zero();
+}
+
+int print_id(char *id){
+  struct precos pr;
+  FILE *p;
+  bool aux = true;
+      
+  p = fopen("ARQUIVOS/precos", "rb");
+  if(p == NULL){
+      printf("Erro ao abrir arquivo\n!");
+      exit(1);
+  }
+  else{
+    while(fread(&pr, sizeof(struct precos), 1, p) && !feof(p)){
+      if(ferror(p)){
+      printf("\nERRO NA LEITURA\n");
+      }
+      else{
+          if (pr.status == 1)
+          {
+            if(strcmp(pr.id,id) == 0){
+              printf("\nServico [ %s ]\n", pr.servico);
+          }
+        }
+      }
+    }
+  }
+  fclose(p);
+}
+
+int print_cli(char *cpf){
+struct cliente novo;
+  FILE *p;
+  char cpf_ip[12];
+  bool aux = true;
+  p = fopen("ARQUIVOS/clientes", "rb");
+  if(p == NULL){
+      printf("Erro ao abrir arquivo\n!");
+      exit(1);
+  }
+  else{
+    while(fread(&novo, sizeof(struct cliente), 1, p) && !feof(p)){
+      if(ferror(p)){
+      printf("\nERRO NA LEITURA\n");
+      }
+      else{
+        if(strcmp(novo.cpf,cpf)==0){
+            printf("\nNome [ %s ] ", novo.nome);
+            printf("\nTelefone [ %s ] \n", novo.tel);
+        }
+      }
+    }
+  }
+  fclose(p);
 }

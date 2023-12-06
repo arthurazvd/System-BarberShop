@@ -226,36 +226,19 @@ int checkidpre(char *id){
   return 0;
 }
 
-void print_id(char *id){
-  struct precos pr;
-  FILE *p;
-  p = fopen("ARQUIVOS/precos", "rb");
-  while(fread(&pr, sizeof(struct precos), 1, p) && !feof(p)){
-      if(ferror(p)){
-      printf("\nERRO NA LEITURA\n");
-      }
-      else{
-          if(strcmp(pr.id,id)==0){
-              printf("\nServico [ %s ] ", pr.servico);
-              fclose(p);
-          }
-      }
-  }
-}
-
 int des_continuar(){
   bool opcao = true;
   while (opcao == true){
-      int opc = continuar();
-      if (opc == 1){
-          return 1;
-      }
-      else if(opc == 0){
-          return 0;
-      }
-      else{
-          printf("Opção Invalida");
-          opcao = true;
-      }
+    int opc = continuar();
+    if (opc == 1){
+        return 1;
+    }
+    else if(opc == 0){
+        return 0;
+    }
+    else{
+        printf("Opção Invalida");
+        opcao = true;
+    }
   }
 }

@@ -13,6 +13,9 @@ int pre_fil_serv();
 
 int pre_fil_tudo();
 
+int print_id();
+
+int print_cli();
 
 
 #endif

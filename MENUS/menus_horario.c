@@ -70,10 +70,13 @@ int agd_pesquisa(){
             }
             else{
                 if(strcmp(nh.cpf_cli,cpf_ip)==0){
+                    printf("\nCLIENTE");
                     printf("\nCPF [ %s ] ", nh.cpf_cli);
+                    print_cli(cpf_ip);
+                    printf("\nAGENDA");
                     printf("\nData [ %s ] ", nh.data);
                     printf("\nHora [ %s ] ", nh.hora);
-                    printf("\nMinuto [ %s ] \n", nh.minuto);
+                    printf("\nMinuto [ %s ]", nh.minuto);
                     print_id(nh.id_preco);
                     printf("\n|---------------------------------------------------------------------------|\n");
                 }
@@ -105,18 +108,21 @@ int agd_agendar(){
         while(aux == true){
             scanf(" %11[^\n]", nh.cpf_cli);
             if(validarCPF(nh.cpf_cli)){
-                aux = false;
-            }
-            else{
-                aux = true;
-                printf("CPF INVALIDO ");
-                int continuar = des_continuar();
-                if (continuar == 1){
-                    aux = true;
-                }else{
-                    return 0;
+                if (checkcli(nh.cpf_cli))
+                {
+                    aux = false;
                 }
-                printf("\nDigite novamente: ");
+                else{
+                    aux = true;
+                    printf("CPF NAO CADASTRADO ");
+                    int continuar = des_continuar();
+                    if (continuar == 1){
+                        aux = true;
+                    }else{
+                        return 0;
+                    }
+                    printf("\nDigite novamente: ");
+                }
             }
         }
         printf("Informe a data a agendar ");

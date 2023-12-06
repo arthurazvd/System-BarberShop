@@ -7,7 +7,7 @@
 
 // Tela do menu inicial que mostra as principais coisas que podem ser colocados em um sistema de barbearia
 int menu_inicial(){
-    printf("|---------------------------------------------------------------------------|\n");
+    printf(RED "|---------------------------------------------------------------------------|\n" RESET);
     printf("|-------------------  S Y S T E M   B A R B E R S H O P  -------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
     printf("|                                                                           |\n");
@@ -29,7 +29,7 @@ int menu_agenda(){
     printf("|------------------------  A G E N D A M E N T O S  ------------------------|\n");
     printf("|---------------------------------------------------------------------------|\n");
     printf("|                                                                           |\n");
-    printf("|                 1 - H O R A R I O S   D I S P O N I V E I S               |\n");
+    printf("|                 1 - H O R A R I O S   A G E N D A D O S                   |\n");
     printf("|                 2 - P E S Q U I S A R                                     |\n");
     printf("|                 3 - A G E N D A R   H O R A R I O                         |\n");
     printf("|                 4 - E D I T A R                                           |\n");
