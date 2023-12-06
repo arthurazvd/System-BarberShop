@@ -1,5 +1,5 @@
-all: menus.o menus_horario.o menus_clientes.o menus_precos.o menus_maquinas.o validacao.o digitar.o listar.o
-	gcc menus.o menus_horario.o menus_clientes.o menus_precos.o menus_maquinas.o validacao.o digitar.o listar.o main.c -o main && rm -rf *.o && clear && ./main
+all: menus.o menus_horario.o menus_clientes.o menus_precos.o menus_maquinas.o validacao.o digitar.o listar.o processos.o
+	gcc menus.o menus_horario.o menus_clientes.o menus_precos.o menus_maquinas.o validacao.o digitar.o listar.o processos.o main.c -o main && rm -rf *.o && clear && ./main
 
 menus.o:	MENUS/menus.h
 	gcc -c MENUS/menus.c
@@ -25,12 +25,15 @@ validacao.o:	UTILITARIOS/validacao.h
 digitar.o:	UTILITARIOS/digitar.h
 	gcc -c UTILITARIOS/digitar.c
 
+processos.o:	UTILITARIOS/processos.h
+	gcc -c UTILITARIOS/processos.c
+
 clean:
 	rm -rf *.o
 
 run:
 	./main
 
-bug: menus.o menus_horario.o menus_clientes.o menus_precos.o menus_maquinas.o validacao.o digitar.o listar.o
-	gcc menus.o menus_horario.o menus_clientes.o menus_precos.o menus_maquinas.o validacao.o digitar.o listar.o main.c -o main && rm -rf *.o
+bug: menus.o menus_horario.o menus_clientes.o menus_precos.o menus_maquinas.o validacao.o digitar.o listar.o processos.o
+	gcc menus.o menus_horario.o menus_clientes.o menus_precos.o menus_maquinas.o validacao.o digitar.o listar.o processos.o main.c -o main && rm -rf *.o
 

@@ -8,9 +8,8 @@ struct cliente{
 struct horario{
     char cpf_cli[12];
     char data[11];
-    char hora[3];
+    char hora[6];
     char id_preco[10];
-    char minuto[3];
 };
 
 struct precos{

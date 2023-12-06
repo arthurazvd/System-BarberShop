@@ -155,7 +155,24 @@ int validardata(char *data) {
 }
 
 //Função para validar hora - Desenvolvida com auxilio do Google Bard
-int validarhora(char *hora, char *minuto) {
+
+
+int validarhora(char *hora_bruta) {
+  if (strlen(hora_bruta) != 5) {
+    return 0;
+  }
+
+  // Aloca memória para as variáveis de retorno
+  char *hora = malloc(sizeof(char) * 2);
+  char *minuto = malloc(sizeof(char) * 2);
+
+  // Copia as horas para a variável "hora"
+  hora[0] = hora_bruta[0];
+  hora[1] = hora_bruta[1];
+
+  // Copia os minutos para a variável "minutos"
+  minuto[0] = hora_bruta[3];
+  minuto[1] = hora_bruta[4];
   // Valida a hora
   if (atoi(hora) < 0 || atoi(hora) > 23) {
     return 0;
@@ -242,3 +259,4 @@ int des_continuar(){
     }
   }
 }
+

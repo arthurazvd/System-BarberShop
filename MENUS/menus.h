@@ -3,6 +3,8 @@
 
 // TELAS
 
+int tela_pri();
+
 int tela_inicial();
 
 int menu_inicial();

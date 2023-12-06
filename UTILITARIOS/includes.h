@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include "digitar.h"
 #include "validacao.h"
+#include "processos.h"
 #include "struct.h"
 #include "../MENUS/menus_horario.h"
 #include "../MENUS/menus_clientes.h"
