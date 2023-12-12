@@ -104,10 +104,10 @@ int pre_cadas(){
 
         fwrite(&pr, sizeof(struct precos), 1, p);
         if (ferror(p)){
-            printf("\nERRO NA GRAVACAO\n");
+            printf("             >> "RED"ERRO NA GRAVAÇÃO"RESET" <<");
         }
         else{
-            printf("Gravacao OK\n");
+            printf("             >> "GRN"GRAVAÇÃO OK"RESET" <<");
         }
         fclose(p);
         }
