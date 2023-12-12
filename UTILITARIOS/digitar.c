@@ -6,6 +6,7 @@
 int digite_opcao(){
     int resp;
     printf("\n                            >>  DIGITE A OPCAO : ");
+    limparBuffer();
     scanf("%d", &resp);
     system("clear");
 
@@ -32,12 +33,11 @@ int digite_zero(){
 
 int continuar(){
     int resp;
-    printf("\n|---------------------------------------------------------------------------|\n");
+    printf(BLU "\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
     printf("\n                      >> DESEJA TENTAR NOVAMENTE? <<");
     
     printf("\n                 >> DIGITE "GRN"1"RESET" PARA "GRN"SIM"RESET" OU "RED"0"RESET" PARA "RED"NAO"RESET" : ");
     scanf("%d", &resp);
-    system("clear");
 
     return resp;
 }

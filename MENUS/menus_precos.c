@@ -40,44 +40,29 @@ int pre_pesquisa(){
     bool aux = true;
     
     limparBuffer();
-    printf("Informe o ID do servico: ");
-    while(aux == true){
-        scanf(" %9[^\n]", id_pre);
-
-        if(validarnumero(id_pre)){
-            aux = false;
-        }
-        else{
-            aux = true;
-            printf("ID INVALIDO ");
-            int continuar = des_continuar();
-            if (continuar == 1){
-                aux = true;
-            }else{
-                return 0;
-            }
-            printf("\nDigite novamente: ");;
-        }
-    }
     p = fopen("ARQUIVOS/precos", "rb");
     if(p == NULL){
         printf("Erro ao abrir arquivo\n!");
         exit(1);
     }
-    else{
-        while(fread(&pr, sizeof(struct precos), 1, p) && !feof(p)){
-            if(ferror(p)){
-            printf("\nERRO NA LEITURA\n");
-            }
-            else{
-                if (pr.status == 1)
-                {
-                    if(strcmp(pr.id,id_pre) == 0){
+
+    printf("Informe o ID do servico: ");
+    if(processo_ID_PRE(pr.id)==0){
+        return 0;
+    }
+
+    while(fread(&pr, sizeof(struct precos), 1, p) && !feof(p)){
+        if(ferror(p)){
+        printf("\nERRO NA LEITURA\n");
+        }
+        else{
+            if (pr.status == 1){
+                if(strcmp(pr.id,id_pre) == 0){
                     printf("\nID [ %s ] ", pr.id);
                     printf("\nServico [ %s ] ", pr.servico);
                     printf("\nPreco R$ [ %s ] \n", pr.preco);
                     printf("\n|---------------------------------------------------------------------------|\n");
-                }                }
+                }                
             }
         }
     }
@@ -104,83 +89,29 @@ int pre_cadas(){
     }
     else{
         printf("Informe o ID do servico: ");
-            while(aux == true){
-                scanf(" %9[^\n]", pr.id);
-                if(validarnumero(pr.id)){
-                    if (checkidpre(pr.id))
-                    {
-                        aux = true;
-                        printf("ID JA CADASTRADO ");
-                        int continuar = des_continuar();
-                        if (continuar == 1){
-                            aux = true;
-                        }else{
-                            return 0;
-                        }
-                        printf("\nDigite novamente: ");
-                    }
-                    else{
-                        aux = false;
-                    }
-                }
-                else{
-                    aux = true;
-                    printf("ID INVALIDO ");
-                    int continuar = des_continuar();
-                    if (continuar == 1){
-                        aux = true;
-                    }else{
-                        return 0;
-                    }
-                    printf("\nDigite novamente: ");
-                }
-            }
-            printf("Informe o servico: ");
-            while(aux == false){
-                scanf(" %24[^\n]", pr.servico);
-                if(validarnome(pr.servico)){
-                    aux = true;
-                }
-                else{
-                    aux = false;
-                    printf("SERVICO INVALIDO ");
-                    int continuar = des_continuar();
-                    if (continuar == 1){
-                        aux = false;
-                    }else{
-                        return 0;
-                    }
-                    printf("\nDigite novamente: ");
-                }
-            }
-            printf("Informe o preco: ");
-            while(aux == true){
-                scanf(" %9[^\n]", pr.preco);
-                if(validarnumero(pr.preco)){
-                    aux = false;
-                }
-                else{
-                    aux = true;
-                    printf("PRECO INVALIDO ");
-                    int continuar = des_continuar();
-                    if (continuar == 1){
-                        aux = true;
-                    }else{
-                        return 0;
-                    }
-                    printf("\nDigite novamente: ");
-                }
-            }
+        if(processo_ID_PRE_CAD(pr.id)==0){
+            return 0;
+        }
 
-            pr.status = 1;
+        printf("Informe o servico: ");
+        if(processo_Servico(pr.servico)==0){
+            return 0;
+        }
 
-            fwrite(&pr, sizeof(struct precos), 1, p);
-            if (ferror(p)){
-                printf("\nERRO NA GRAVACAO\n");
-            }
-            else{
-                printf("Gravacao OK\n");
-            }
+        printf("Informe o preco: ");
+        if(processo_Preco(pr.preco)==0){
+            return 0;
+        }
+
+        pr.status = 1;
+
+        fwrite(&pr, sizeof(struct precos), 1, p);
+        if (ferror(p)){
+            printf("\nERRO NA GRAVACAO\n");
+        }
+        else{
+            printf("Gravacao OK\n");
+        }
         fclose(p);
         }
         
@@ -199,77 +130,57 @@ int pre_edit(){
     char id_pre[10];
     bool aux = true;
 
-    printf("\nInforme o ID do servico a ser editado: ");
-    while (aux == true) {
-        scanf(" %9[^\n]", id_pre);
-        if (validarnumero(id_pre)) {
-            aux = false;
-        } else {
-            aux = true;
-            printf("ID INVALIDO ");
-            int continuar = des_continuar();
-            if (continuar == 1){
-                aux = true;
-            }else{
-                return 0;
-            }
-            printf("\nDigite novamente: ");
-        }
-    }
-
     p = fopen("ARQUIVOS/precos", "rb+");
     if (p == NULL) {
         printf("Erro ao abrir arquivo\n!");
         exit(1);
-    } else {
-        while (fread(&pr, sizeof(struct precos), 1, p) && !feof(p)) {
-            if (strcmp(pr.id, id_pre) == 0) {
 
-                while (aux == false) {
-                    printf("Informe o novo servico: ");
-                    scanf(" %24[^\n]", pr.servico);
-                    if (validarnome(pr.servico)) {
-                        aux = true;
-                    } else {
-                        aux = false;
-                        printf("SERVICO INVALIDO ");
-                        int continuar = des_continuar();
-                        if (continuar == 1){
-                            aux = false;
-                        }else{
-                            return 0;
-                        }
-                        printf("\nDigite novamente: ");
-                    }
+    }
+
+    printf("\nInforme o ID do servico a ser editado: ");
+    while(aux == true){
+        scanf(" %9[^\n]", id_pre);
+        if(validarnumero(id_pre)){
+            if (checkidpre(id_pre))
+            {
+                aux = false;
+            }
+            else{
+                aux = true;
+                char text[50] = "             >> "RED"ID JA CADASTRADO"RESET" << ";
+                if (processo_Continuar(text)==0){
+                    return 0;
                 }
-
-                while (aux == true) {
-                    printf("Informe o novo preco: ");
-                    scanf(" %9[^\n]", pr.preco);
-                    if (validarnumero(pr.preco)) {
-                        aux = false;
-                    } else {
-                        aux = true;
-                        printf("PRECO INVALIDO ");
-                        int continuar = des_continuar();
-                        if (continuar == 1){
-                            aux = true;
-                        }else{
-                            return 0;
-                        }
-                        printf("\nDigite novamente: ");
-                    }
-                }
-
-                fseek(p, -sizeof(struct precos), SEEK_CUR);
-                fwrite(&pr, sizeof(struct precos), 1, p);
-
-                printf("Preco editado com sucesso!\n");
             }
         }
-        if (strcmp(pr.id, id_pre) != 0) {
-            printf("Preco nao encontrado!\n");
+        else{
+            aux = true;
+            char text[50] = "             >> "RED"ID INVALIDO"RESET" << ";
+            if (processo_Continuar(text)==0){
+                return 0;
+            }
         }
+    }
+    while (fread(&pr, sizeof(struct precos), 1, p) && !feof(p)) {
+        if (strcmp(pr.id, id_pre) == 0) {
+            printf("Informe o novo servico: ");
+            if(processo_Servico(pr.servico)==0){
+                return 0;
+            }
+
+            printf("Informe o novo preco: ");
+            if(processo_Preco(pr.preco)==0){
+                return 0;
+            }
+
+            fseek(p, -sizeof(struct precos), SEEK_CUR);
+            fwrite(&pr, sizeof(struct precos), 1, p);
+
+            printf("Preco editado com sucesso!\n");
+        }
+    }
+    if (strcmp(pr.id, id_pre) != 0) {
+        printf("Preco nao encontrado!\n");
     }
     fclose(p);
     printf("|---------------------------------------------------------------------------|\n");
@@ -289,20 +200,27 @@ int pre_del(){
     bool aux = true;
 
     printf("\nInforme o ID do servico a ser deletado: ");
-    while (aux == true) {
+    while(aux == true){
         scanf(" %9[^\n]", id_pre);
-        if (validarnumero(id_pre)) {
-            aux = false;
-        } else {
-            aux = true;
-            printf("ID INVALIDO ");
-            int continuar = des_continuar();
-            if (continuar == 1){
+        if(validarnumero(id_pre)){
+            if (checkidpre(id_pre))
+            {
+                aux = false;
+            }
+            else{
                 aux = true;
-            }else{
+                char text[50] = "             >> "RED"ID JA CADASTRADO"RESET" << ";
+                if (processo_Continuar(text)==0){
+                    return 0;
+                }
+            }
+        }
+        else{
+            aux = true;
+            char text[50] = "             >> "RED"ID INVALIDO"RESET" << ";
+            if (processo_Continuar(text)==0){
                 return 0;
             }
-            printf("\nDigite novamente: ");
         }
     }
 

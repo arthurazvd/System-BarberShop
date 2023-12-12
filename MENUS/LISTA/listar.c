@@ -8,16 +8,17 @@
 
 //####################################### LISTAR CLIENTES #################################################
 int cli_fil_nome(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|----------------------------  C L I E N T E S  ----------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||════════════════════════" CYN " >> LISTA DE CLIENTES POR NOME << " BLU "═════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
     struct cliente novo;
     FILE *p;
     char nome_ip[100];
     bool aux = true;
     
     limparBuffer();
-    printf("Informe o nome do cliente: ");
+    printf("\n             >> "CYN"Informe o NOME do cliente: "RESET);
     while(aux == true){
         scanf(" %99[^\n]", nome_ip);
         if(validarnome(nome_ip)){
@@ -25,7 +26,7 @@ int cli_fil_nome(){
         }
         else{
             aux = true;
-            printf("NOME INVALIDO ");
+            printf("             >> "RED"NOME INVALIDO"RESET" << ");
             int continuar = des_continuar();
             if (continuar == 1){
                 aux = true;
@@ -35,6 +36,8 @@ int cli_fil_nome(){
             printf("\nDigite novamente: ");
         }
     }
+    printf(BLU "\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
+
     p = fopen("ARQUIVOS/clientes", "rb");
     if(p == NULL){
         printf("Erro ao abrir arquivo\n!");
@@ -48,10 +51,10 @@ int cli_fil_nome(){
             else{
                 if(novo.status == 1){
                     if(strcmp(novo.nome,nome_ip)==0){
-                        printf("\nCPF [ %s ] ", novo.cpf);
-                        printf("\nNome [ %s ] ", novo.nome);
-                        printf("\nTelefone [ %s ] \n", novo.tel);
-                        printf("\n|---------------------------------------------------------------------------|\n");
+                        printf("\n             >> CPF: "MAG"%s"RESET"", novo.cpf);
+                        printf("\n             >> NOME: "MAG"%s"RESET"", novo.nome);
+                        printf("\n             >> TELEFONE: "MAG"%s"RESET"\n", novo.tel);
+                        printf(BLU "\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
                     }
                 }
             }

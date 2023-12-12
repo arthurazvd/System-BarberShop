@@ -8,15 +8,16 @@
 
 //Leitor de arquivos adaptado dos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=nJrENSVTF94&t=3s
 int cli_lista(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|----------------------------  C L I E N T E S  ----------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                    1 - L I S T A R  P O R  N O M E                        |\n");
-    printf("|                    2 - L I S T A R  T U D O                               |\n");
-    printf("|                    0 - V O L T A R                                        |\n");
-    printf("|                                                                           |\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||═════════════════════════════" CYN " >> LISTAR CLIENTES << " BLU "═══════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||                                                                               ||\n");
+    printf("||                              1 "CYN"- LISTAR POR NOME"BLU"                              ||\n");
+    printf("||                              2 "CYN"- LISTAR TUDO"BLU"                                  ||\n");
+    printf("||                              0 "CYN"- VOLTAR"BLU"                                       ||\n");
+    printf("||                                                                               ||\n");
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
 
     switch(digite_opcao()){
         case 1:
@@ -29,35 +30,19 @@ int cli_lista(){
 }
 
 int cli_pesquisa(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|--------------------------  P E S Q U I S A  D E --------------------------|\n");
-    printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||═══════════════════════════" CYN " >> PESQUISA DE CLIENTE << " BLU "═════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
     struct cliente novo;
     FILE *p;
     char cpf_ip[12];
-    bool aux = true;
-
     
-    limparBuffer();
-    printf("Informe o CPF do cliente: ");
-    while(aux == true){
-        scanf(" %12[^\n]", cpf_ip);
-        if(validarCPF(cpf_ip)){
-            aux = false;
-        }
-        else{
-            aux = true;
-            printf("CPF INVALIDO ");
-            int continuar = des_continuar();
-            if (continuar == 1){
-                aux = true;
-            }else{
-                return 0;
-            }
-            printf("\nDigite novamente: ");
-        }
+    printf("\n             >> "CYN"Informe o CPF do cliente: "RESET);
+    if(processo_CPF(cpf_ip)==0){
+        return 0;
     }
+
     p = fopen("ARQUIVOS/clientes", "rb");
     if(p == NULL){
         printf("Erro ao abrir arquivo\n!");
@@ -71,10 +56,11 @@ int cli_pesquisa(){
             else{
                 if(novo.status == 1){
                     if(strcmp(novo.cpf,cpf_ip)==0){
-                        printf("\nCPF [ %s ] ", novo.cpf);
-                        printf("\nNome [ %s ] ", novo.nome);
-                        printf("\nTelefone [ %s ] \n", novo.tel);
-                        printf("\n|---------------------------------------------------------------------------|\n");
+                        printf("\n             >> CPF: "MAG"%s"RESET"", novo.cpf);
+                        printf("\n             >> NOME: "MAG"%s"RESET"", novo.nome);
+                        printf("\n             >> TELEFONE: "MAG"%s"RESET"\n", novo.tel);
+                        printf(BLU "\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
+
                     }
                 }
             }
@@ -86,13 +72,12 @@ int cli_pesquisa(){
 
 //Salvamento em arquivo feito com base nos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=TqbnYUUdGjw&t=281s
 int cli_cadas(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|--------------------------  C A D A S T R O  D E  -------------------------|\n");
-    printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||═══════════════════════════" CYN " >> CADASTRO DE CLIENTE << " BLU "═════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
     struct cliente novo;
     FILE *p;
-    bool aux = true;
 
     p = fopen("ARQUIVOS/clientes", "a+b");
     if (p == NULL){
@@ -100,122 +85,47 @@ int cli_cadas(){
         exit(1);
     }
     else{
-        printf("Informe o CPF do cliente: ");
-        while(aux == true){
-            scanf(" %11[^\n]", novo.cpf);
-            if(validarCPF(novo.cpf)){
-                if (checkcli(novo.cpf))
-                {
-                    aux = true;
-                    printf("CPF JA CADASTRADO ");
-                    int continuar = des_continuar();
-                    if (continuar == 1){
-                        aux = true;
-                    }else{
-                        return 0;
-                    }
-                    printf("\nDigite novamente: ");
-                }
-                else{
-                    aux = false;
-                }
-            }
-            else{
-                aux = true;
-                printf("CPF INVALIDO ");
-                int continuar = des_continuar();
-                if (continuar == 1){
-                    aux = true;
-                }else{
-                    return 0;
-                }
-                printf("\nDigite novamente: ");
-            }
+        printf("             >> "CYN"Informe o CPF do cliente: "RESET);
+        if(processo_CPF_CAD(novo.cpf)==0){
+            return 0;
         }
+        
         limparBuffer();
-        printf("Informe o nome do cliente: ");
-        while(aux == false){
-            scanf(" %99[^\n]", novo.nome);
-            if(validarnome(novo.nome)){
-                aux = true;
-            }
-            else{
-                aux = false;
-                printf("NOME INVALIDO ");
-                int continuar = des_continuar();
-                if (continuar == 1){
-                    aux = false;
-                }else{
-                    return 0;
-                }
-                printf("\nDigite novamente: ");
-            }
+        printf("             >> "CYN"Informe o NOME do cliente: "RESET);
+        if(processo_Nome(novo.nome)==0){
+            return 0;
         }
-        printf("Informe o Telefone do cliente: ");
-        while(aux == true){
-            scanf(" %11[^\n]", novo.tel);
-            if(validartelefone(novo.tel)){
-                aux = false;
-            }
-            else{
-                aux = true;
-                printf("TELEFONE INVALIDO ");
-                int continuar = des_continuar();
-
-                if (continuar == 1){
-                    aux = true;
-                }else{
-                    return 0;
-                }
-                printf("\nDigite novamente: ");
-            }
+        printf("             >> "CYN"Informe o TELEFONE do cliente: "RESET);
+        if(processo_Tel(novo.tel)==0){
+            return 0;
         }
         novo.status = 1;
 
         fwrite(&novo, sizeof(struct cliente), 1, p);
         if (ferror(p)){
-            printf("\nERRO NA GRAVACAO\n");
+            printf("             >> "RED"ERRO NA GRAVAÇÃO"RESET" <<");
         }
         else{
-            printf("Gravacao OK\n");
+            printf("             >> "GRN"GRAVAÇÃO OK"RESET" <<");
         }
     fclose(p);
     }
     
-    printf("|---------------------------------------------------------------------------|\n");
+    printf(BLU "\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
 
     digite_zero();
 
 }
 
 int cli_edit(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|------------------------------  E D I T A R  ------------------------------|\n");
-    printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||════════════════════════════" CYN " >> EDICAO DE CLIENTE << " BLU "══════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
     struct cliente novo;
     FILE *p;
     char cpf_ip[12];
     bool aux = true;
-
-    printf("\nInforme o CPF do cliente a ser editado: ");
-    while(aux == true){
-        scanf(" %11[^\n]", cpf_ip);
-        if(validarCPF(cpf_ip)){
-            aux = false;
-        }
-        else{
-            aux = true;
-            printf("CPF INVALIDO ");
-            int continuar = des_continuar();
-            if (continuar == 1){
-                aux = true;
-            }else{
-                return 0;
-            }
-            printf("\nDigite novamente: ");
-        }
-    }
 
     p = fopen("ARQUIVOS/clientes", "rb+");
     if (p == NULL) {
@@ -223,87 +133,91 @@ int cli_edit(){
         exit(1);
     }
 
-    while (fread(&novo, sizeof(struct cliente), 1, p) && !feof(p)) {
-
-        if (strcmp(novo.cpf, cpf_ip) == 0) {
-            limparBuffer();
-            printf("Informe o nome do cliente: ");
-            while(aux == false){
-                scanf(" %99[^\n]", novo.nome);
-                if(validarnome(novo.nome)){
-                    aux = true;
-                }
-                else{
-                    aux = false;
-                    printf("NOME INVALIDO ");
-                    int continuar = des_continuar();
-                    if (continuar == 1){
-                        aux = true;
-                    }else{
-                        return 0;
-                    }
-                    printf("\nDigite novamente: ");
+    printf("\n             >> "CYN"Informe o CPF do cliente a ser editado: "RESET);
+    while(aux == true){
+        scanf(" %11[^\n]", cpf_ip);
+        if(validarCPF(cpf_ip)){
+            if (checkcli(cpf_ip))
+            {
+                aux = false;
+            }
+            else{
+                aux = true;
+                char text[50] = "             >> "RED"CPF NAO CADASTRADO"RESET" << ";
+                if (processo_Continuar(text)==0){
+                    return 0;
                 }
             }
+        }
+        else{
+            aux = true;
+            char text[50] = "             >> "RED"CPF INVALIDO"RESET" << ";
+            if (processo_Continuar(text)==0){
+                return 0;
+            }
+        }
+    }
+
+    while (fread(&novo, sizeof(struct cliente), 1, p) && !feof(p)) {
+        if (strcmp(novo.cpf, cpf_ip) == 0) {
             limparBuffer();
-            printf("Informe o Telefone do cliente: ");
-            while(aux == true){
-                scanf(" %11[^\n]", novo.tel);
-                if(validartelefone(novo.tel)){
-                    aux = false;
-                }
-                else{
-                    aux = true;
-                    printf("TELEFONE INVALIDO ");
-                    int continuar = des_continuar();
-                    if (continuar == 1){
-                        aux = true;
-                    }else{
-                        return 0;
-                    }
-                    printf("\nDigite novamente: ");
-                }
+            printf("             >> "CYN"Informe o NOME do cliente: "RESET);
+            if(processo_Nome(novo.nome)==0){
+                return 0;
+            }
+
+            limparBuffer();
+            printf("             >> "CYN"Informe o TELEFONE do cliente: "RESET);
+            if(processo_Tel(novo.tel)==0){
+                return 0;
             }
 
             fseek(p, -sizeof(struct cliente), SEEK_CUR);
             fwrite(&novo, sizeof(struct cliente), 1, p);
+            printf("             >> "GRN"Cliente EDITADO com sucesso"RESET" <<\n");
 
             break;
         }
     }
     fclose(p);
-    printf("|---------------------------------------------------------------------------|\n");
+    printf(BLU "\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
 
     digite_zero();
 
 }
 
 int cli_del(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|-----------------------------  D E L E T A R  -----------------------------|\n");
-    printf("|-----------------------------  C L I E N T E  -----------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||═══════════════════════════" CYN " >> DELETACAO DE CLIENTE << " BLU "════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
     struct cliente novo;
     FILE *p;
     char cpf_ip[12];
     bool aux = true;
 
-    printf("\nInforme o CPF do cliente a ser deletado: ");
+    printf("\n             >> "CYN"Informe o CPF do cliente a ser deletado: "RESET);
     while(aux == true){
         scanf(" %11[^\n]", cpf_ip);
         if(validarCPF(cpf_ip)){
-            aux = false;
+            if (checkcli(cpf_ip))
+            {
+                aux = false;
+            }
+            else{
+                aux = true;
+                char text[50] = "             >> "RED"CPF NAO CADASTRADO"RESET" << \n";
+                if (processo_Continuar(text)==0){
+                    return 0;
+                }
+            }
         }
         else{
             aux = true;
-            printf("CPF INVALIDO ");
-            int continuar = des_continuar();
-            if (continuar == 1){
-                aux = true;
-            }else{
+            char text[50] = "             >> "RED"CPF INVALIDO"RESET" << \n";
+            if (processo_Continuar(text)==0){
                 return 0;
             }
-            printf("\nDigite novamente: ");
         }
     }
 
@@ -323,7 +237,7 @@ int cli_del(){
             fseek(p, -sizeof(struct cliente), SEEK_CUR);
             fwrite(&novo, sizeof(struct cliente), 1, p);
 
-            printf("Cliente deletado com sucesso!\n");
+            printf("             >> "GRN"Cliente DELETADO com sucesso"RESET" <<\n");
             break;
         }
     }

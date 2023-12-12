@@ -48,24 +48,10 @@ int maq_pesquisa(){
     
     limparBuffer();
     printf("Informe o ID da maquina: ");
-    while(aux == true){
-        scanf(" %9[^\n]", id_maq);
-
-        if(validarnumero(id_maq)){
-            aux = false;
-        }
-        else{
-            aux = true;
-            printf("ID INVALIDO ");
-            int continuar = des_continuar();
-            if (continuar == 1){
-                aux = true;
-            }else{
-                return 0;
-            }
-            printf("\nDigite novamente: ");
-        }
+    if(processo_ID_MAQ(maq.id)==0){
+        return 0;
     }
+
     p = fopen("ARQUIVOS/maquinas", "rb");
     if(p == NULL){
         printf("Erro ao abrir arquivo\n!");
@@ -106,24 +92,10 @@ int maq_cadas(){
     }
     else{
         printf("Informe o ID da maquina: ");
-            while(aux == true){
-                scanf(" %9[^\n]", maq.id);
-                if(validarnumero(maq.id)){
-                    aux = false;
-                }
-                else{
-                    aux = true;
-                    printf("ID INVALIDO ");
-                    int continuar = des_continuar();
-                    if (continuar == 1){
-                        aux = true;
-                    }else{
-                        return 0;
-                    }
-                    printf("\nDigite novamente: ");
-                }
-            }
-       
+        if(processo_ID_MAQ(maq.id)==0){
+            return 0;
+        }
+
         printf("Informe a maquina: ");
         scanf(" %19[^\n]", maq.nome);
         fwrite(&maq, sizeof(struct maquinas), 1, p);
@@ -151,22 +123,21 @@ int maq_edit(){
     bool aux = true;
 
     printf("\nInforme o ID da máquina a ser editada: ");
-    while (aux == true) {
+    while(aux == true){
         scanf(" %9[^\n]", id_maq);
-        if (validarnumero(id_maq)) {
+
+        if(validarnumero(id_maq)){
             aux = false;
-        } else {
+        }
+        else{
             aux = true;
-            printf("ID INVALIDO ");
-            int continuar = des_continuar();
-            if (continuar == 1){
-                aux = true;
-            }else{
+            char text[50] = "             >> "RED"ID INVALIDO"RESET" << ";
+            if (processo_Continuar(text)==0){
                 return 0;
             }
-            printf("\nDigite novamente: ");
         }
     }
+
 
     p = fopen("ARQUIVOS/maquinas", "rb+");
     if (p == NULL) {
@@ -207,22 +178,21 @@ int maq_del(){
     bool aux = true;
 
     printf("\nInforme o ID da maquina a ser deletado: ");
-    while (aux == true) {
+    while(aux == true){
         scanf(" %9[^\n]", id_maq);
-        if (validarnumero(id_maq)) {
+
+        if(validarnumero(id_maq)){
             aux = false;
-        } else {
+        }
+        else{
             aux = true;
-            printf("ID INVALIDO ");
-            int continuar = des_continuar();
-            if (continuar == 1){
-                aux = true;
-            }else{
+            char text[50] = "             >> "RED"ID INVALIDO"RESET" << ";
+            if (processo_Continuar(text)==0){
                 return 0;
             }
-            printf("\nDigite novamente: ");
         }
     }
+
 
     p = fopen("ARQUIVOS/maquinas", "rb");
     p_temp = fopen("ARQUIVOS/maquinas_temp", "wb");

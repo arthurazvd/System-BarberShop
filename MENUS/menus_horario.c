@@ -43,7 +43,9 @@ int agd_pesquisa(){
     limparBuffer();
     printf("\n             >> Informe o CPF do cliente: ");
 
-    if (processo_CPF(cpf_ip));
+    if (processo_CPF(cpf_ip)==0){
+        return 0;
+    }
 
     p = fopen("ARQUIVOS/horarios", "rb");
     if(p == NULL){
@@ -64,7 +66,7 @@ int agd_pesquisa(){
                     printf("\n             >> Data: "MAG"%s"RESET"", nh.data);
                     printf("\n             >> Hora: "MAG"%s"RESET"", nh.hora);
                     print_id(nh.id_preco);
-                    printf(BLU"||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
+                    printf(BLU"\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
                 }
             }
         }
@@ -91,55 +93,25 @@ int agd_agendar(){
     }
     else{
         printf("Informe o CPF do cliente: ");
-        if (processo_CPF(nh.cpf_cli)){
-            if (checkcli(nh.cpf_cli)){
-                aux = false;
-            }
-            else{
-                aux = true;
-                printf("CPF NAO CADASTRADO ");
-                int continuar = des_continuar();
-                if (continuar == 1){
-                    aux = true;
-                }else{
-                    return 0;
-                }
-                printf("\nDigite novamente: ");
-            }
+        if(processo_CPF_HOR(nh.cpf_cli)==0){
+            return 0;
         }
 
         printf("Informe a data a agendar ");
         //aqui ele vai ter que validar se aquele horario está disponivel 
-        if(processo_Data(nh.data));
+        if(processo_Data(nh.data)==0){
+            return 0;
+        }
         printf("Informe a hora a agendar ");
         //aqui ele vai ter que validar se aquele horario está disponivel 
-        if(processo_Hora(nh.hora));
+        if(processo_Hora(nh.hora)==0){
+            return 0;
+        }
 
         printf("Informe o ID do serviço ");
         //aqui ele vai ter que validar se aquele horario está disponivel 
-        while(aux == false){
-            printf("\nID: ");
-            scanf(" %3[^\n]", nh.id_preco);
-            if(validarnumero(nh.id_preco)){
-                if (checkidpre(nh.id_preco))
-                {
-                    aux = true;
-                }
-                else{
-                    aux = false;
-                }
-            }
-            else{
-                aux = false;
-                printf("ID INVALIDO ");
-                int continuar = des_continuar();
-                if (continuar == 1){
-                    aux = false;
-                }else{
-                    return 0;
-                }
-                printf("\nDigite novamente: ");
-            }
+        if(processo_ID_PRE(nh.id_preco)==0){
+            return 0;
         }
     }
     fwrite(&nh, sizeof(struct horario), 1, p);
@@ -151,7 +123,7 @@ int agd_agendar(){
         }
     fclose(p);
     
-    printf("|---------------------------------------------------------------------------|\n");
+    printf(BLU"||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
 
     digite_zero();
 }
@@ -167,20 +139,21 @@ int agd_edit(){
     bool aux = true;
 
     printf("\nInforme o CPF do cliente a ter horario editado: ");
+    while(aux == true){
     if (processo_CPF(cpf_ip)){
-        if (checkcli(cpf_ip)){
-            aux = false;
+            if (checkcli(cpf_ip)){
+                aux = false;
+            }
+            else{
+                aux = true;
+                char text[50] = "             >> "RED"CPF NAO CADASTRADO"RESET" << ";
+                if (processo_Continuar(text)==0){
+                    return 0;
+                }
+            }
         }
         else{
-            aux = true;
-            printf("CPF NAO CADASTRADO ");
-            int continuar = des_continuar();
-            if (continuar == 1){
-                aux = true;
-            }else{
-                return 0;
-            }
-            printf("\nDigite novamente: ");
+            return 0;
         }
     }
 
@@ -194,10 +167,14 @@ int agd_edit(){
 
         if (strcmp(nh.cpf_cli, cpf_ip) == 0) {
             printf("Informe o data a agendar ");
-            if(processo_Data(nh.data));
+            if(processo_Data(nh.data)==0){
+                return 0;
+            }
 
             printf("Informe o hora a agendar ");
-            if(processo_Hora(nh.hora));
+            if(processo_Hora(nh.hora)==0){
+                return 0;
+            }
 
             fseek(p, -sizeof(struct horario), SEEK_CUR);
             fwrite(&nh, sizeof(struct horario), 1, p);
@@ -223,7 +200,23 @@ int agd_cancelamento(){
 
     printf("\nInforme o CPF do cliente a ter horario cancelado: ");
     
-    if (processo_CPF(cpf_ip));
+    while(aux == true){
+    if (processo_CPF(cpf_ip)){
+            if (checkcli(cpf_ip)){
+                aux = false;
+            }
+            else{
+                aux = true;
+                char text[50] = "             >> "RED"CPF NAO CADASTRADO"RESET" << ";
+                if (processo_Continuar(text)==0){
+                    return 0;
+                }
+            }
+        }
+        else{
+            return 0;
+        }
+    }
 
     p = fopen("ARQUIVOS/horarios", "rb");
     p_temp = fopen("ARQUIVOS/horarios_temp", "wb");
@@ -244,7 +237,7 @@ int agd_cancelamento(){
 
         printf("Horario cancelado com sucesso!\n");
     }
-    printf("|---------------------------------------------------------------------------|\n");
+    printf(BLU"||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
 
     digite_zero();
 }
