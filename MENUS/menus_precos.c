@@ -8,16 +8,16 @@
 //Leitor de arquivos adaptado dos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=nJrENSVTF94&t=3s
 
 int pre_lista(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|---------------------------  T A B E L A  D E  ----------------------------|\n");
-    printf("|------------------------------  P R E C O S  ------------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|                                                                           |\n");
-    printf("|                 1 - L I S T A R  P O R  S E R V I C O                     |\n");
-    printf("|                 2 - L I S T A R  T U D O                                  |\n");
-    printf("|                 0 - V O L T A R                                           |\n");
-    printf("|                                                                           |\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||═════════════════════════════" CYN " >> TABELA DE PRECOS << " BLU "══════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||                                                                               ||\n");
+    printf("||                            1 "CYN"- LISTAR POR SERVICO"BLU"                             ||\n");
+    printf("||                            2 "CYN"- LISTAR TUDO"BLU"                                    ||\n");
+    printf("||                            0 "CYN"- VOLTAR"BLU"                                         ||\n");
+    printf("||                                                                               ||\n");
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
 
     switch(digite_opcao()){
         case 1:
@@ -30,10 +30,10 @@ int pre_lista(){
 }
 
 int pre_pesquisa(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|--------------------------  P E S Q U I S A  D E --------------------------|\n");
-    printf("|------------------------------  P R E C O S  ------------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||════════════════════════════" CYN " >> PESQUISA DE PRECO << " BLU "══════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
     struct precos pr;
     FILE *p;
     char id_pre[10];
@@ -46,7 +46,7 @@ int pre_pesquisa(){
         exit(1);
     }
 
-    printf("Informe o ID do servico: ");
+    printf("\n             >> "CYN"Informe o ID do servico: "RESET);
     if(processo_ID_PRE(pr.id)==0){
         return 0;
     }
@@ -58,10 +58,10 @@ int pre_pesquisa(){
         else{
             if (pr.status == 1){
                 if(strcmp(pr.id,id_pre) == 0){
-                    printf("\nID [ %s ] ", pr.id);
-                    printf("\nServico [ %s ] ", pr.servico);
-                    printf("\nPreco R$ [ %s ] \n", pr.preco);
-                    printf("\n|---------------------------------------------------------------------------|\n");
+                    printf("\n             >> ID: "MAG"%s"RESET"", pr.id);
+                    printf("\n             >> Servico: "MAG"%s"RESET"", pr.servico);
+                    printf("\n             >> Preco R$: "MAG"%s"RESET" \n", pr.preco);
+                    printf(BLU "\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
                 }                
             }
         }
@@ -72,33 +72,30 @@ int pre_pesquisa(){
 //Salvamento em arquivo feito com base nos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=TqbnYUUdGjw&t=281s
 
 int pre_cadas(){
-
-    
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||════════════════════════════" CYN " >> CADASTRO DE PRECO << " BLU "══════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
     struct precos pr;
     FILE *p;
     bool aux = true;
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|--------------------------  C A D A S T R O  D E  -------------------------|\n");
-    printf("|------------------------------  P R E C O S  ------------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
-
     p = fopen("ARQUIVOS/precos", "a+b");
     if (p == NULL){
         printf("Erro ao abrir arquivo\n!");
         exit(1);
     }
     else{
-        printf("Informe o ID do servico: ");
+        printf("\n             >> "CYN"Informe o ID do servico: "RESET);
         if(processo_ID_PRE_CAD(pr.id)==0){
             return 0;
         }
 
-        printf("Informe o servico: ");
+        printf("\n             >> "CYN"Informe o Servico: "RESET);
         if(processo_Servico(pr.servico)==0){
             return 0;
         }
 
-        printf("Informe o preco: ");
+        printf("\n             >> "CYN"Informe o Preco: "RESET);
         if(processo_Preco(pr.preco)==0){
             return 0;
         }
@@ -115,16 +112,16 @@ int pre_cadas(){
         fclose(p);
         }
         
-    printf("|---------------------------------------------------------------------------|\n");
+    printf(BLU "\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
 
     digite_zero();
 }
 
 int pre_edit(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|------------------------------  E D I T A R  ------------------------------|\n");
-    printf("|------------------------------  P R E C O S  ------------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||═══════════════════════════════" CYN " >> EDITAR PRECO << " BLU "════════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
     struct precos pr;
     FILE *p;
     char id_pre[10];
@@ -137,7 +134,7 @@ int pre_edit(){
 
     }
 
-    printf("\nInforme o ID do servico a ser editado: ");
+    printf("\n             >> "CYN"Informe o ID do servico a ser editado: "RESET);
     while(aux == true){
         scanf(" %9[^\n]", id_pre);
         if(validarnumero(id_pre)){
@@ -147,7 +144,7 @@ int pre_edit(){
             }
             else{
                 aux = true;
-                char text[50] = "             >> "RED"ID JA CADASTRADO"RESET" << ";
+                char text[50] = "             >> "RED"ID NAO CADASTRADO"RESET" << ";
                 if (processo_Continuar(text)==0){
                     return 0;
                 }
@@ -163,12 +160,12 @@ int pre_edit(){
     }
     while (fread(&pr, sizeof(struct precos), 1, p) && !feof(p)) {
         if (strcmp(pr.id, id_pre) == 0) {
-            printf("Informe o novo servico: ");
+            printf("\n             >> "CYN"Informe o NOVO Servico: "RESET);
             if(processo_Servico(pr.servico)==0){
                 return 0;
             }
 
-            printf("Informe o novo preco: ");
+            printf("\n             >> "CYN"Informe o NOVO Preco: "RESET);
             if(processo_Preco(pr.preco)==0){
                 return 0;
             }
@@ -176,30 +173,30 @@ int pre_edit(){
             fseek(p, -sizeof(struct precos), SEEK_CUR);
             fwrite(&pr, sizeof(struct precos), 1, p);
 
-            printf("Preco editado com sucesso!\n");
+            printf("\n             >> "GRN"PRECO EDITADO COM SUCESSO"RESET" <<");
         }
     }
     if (strcmp(pr.id, id_pre) != 0) {
-        printf("Preco nao encontrado!\n");
+        printf("\n             >> "RED"PRECO NAO ENCONTRADO"RESET" <<");
     }
     fclose(p);
-    printf("|---------------------------------------------------------------------------|\n");
+    printf(BLU "\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
 
     digite_zero();
 
 }
 
 int pre_del(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|-----------------------------  D E L E T A R  -----------------------------|\n");
-    printf("|------------------------------  P R E C O S  ------------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||═══════════════════════════════" CYN " >> DELETAR PRECO << " BLU "═══════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
     struct precos pr;
     FILE *p;
     char id_pre[10];
     bool aux = true;
 
-    printf("\nInforme o ID do servico a ser deletado: ");
+    printf("\n             >> "CYN"Informe o ID do servico a ser deletado: "RESET);
     while(aux == true){
         scanf(" %9[^\n]", id_pre);
         if(validarnumero(id_pre)){
@@ -209,7 +206,7 @@ int pre_del(){
             }
             else{
                 aux = true;
-                char text[50] = "             >> "RED"ID JA CADASTRADO"RESET" << ";
+                char text[50] = "             >> "RED"ID NAO CADASTRADO"RESET" << ";
                 if (processo_Continuar(text)==0){
                     return 0;
                 }
@@ -237,15 +234,15 @@ int pre_del(){
                 fseek(p, -sizeof(struct precos), SEEK_CUR);
                 fwrite(&pr, sizeof(struct precos), 1, p);
 
-                printf("Preco deletado com sucesso!\n");
+                printf("\n             >> "GRN"PRECO DELETADO COM SUCESSO"RESET" <<");
             }
         }
         if (strcmp(pr.id, id_pre) != 0) {
-            printf("Preco nao encontrado!\n");
+            printf("\n             >> "RED"PRECO NAO ENCONTRADO"RESET" <<");
         }
     }
     fclose(p);
-    printf("|---------------------------------------------------------------------------|\n");
+    printf(BLU "\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
 
     digite_zero();
 
