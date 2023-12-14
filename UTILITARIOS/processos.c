@@ -148,7 +148,6 @@ int processo_Tel(char *tel){
 int processo_ID_PRE(char *id){
     bool aux = true;
     while(aux == true){
-        printf("\nID: ");
         scanf(" %3[^\n]", id);
         if(validarnumero(id)){
             if (checkidpre(id))

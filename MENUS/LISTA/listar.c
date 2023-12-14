@@ -313,7 +313,7 @@ int pre_fil_serv(){
                 if (pr.status == 1)
                 {
                     if(strcmp(pr.servico,serv_ip) == 0){
-                    printf(BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||\n"RESET, pr.id, pr.servico, pr.preco);
+                    printf(BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||  "RESET"R$ %-20s"BLU"||\n"RESET, pr.id, pr.servico, pr.preco);
                     printf(BLU"||═════════════════════════||═════════════════════════||═════════════════════════||\n"RESET);    
                     }                
                 }
@@ -347,7 +347,7 @@ int pre_fil_tudo(){
             else{
                 if (pr.status == 1)
                 {
-                    printf(BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||\n"RESET, pr.id, pr.servico, pr.preco);
+                    printf(BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||  "RESET"R$ %-20s"BLU"||\n"RESET, pr.id, pr.servico, pr.preco);
                     printf(BLU"||═════════════════════════||═════════════════════════||═════════════════════════||\n"RESET);
                 }
             }
