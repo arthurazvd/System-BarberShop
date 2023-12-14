@@ -7,6 +7,77 @@
 //Leitorres de arquivos adaptado dos slides e nessa video aula do Professor Romerson: https://www.youtube.com/watch?v=nJrENSVTF94&t=3s
 
 //####################################### LISTAR CLIENTES #################################################
+
+// Adaptado de: Gabriel Canuto - Github: https://github.com/gabrielygor
+void cli_fil_alfa(void) {
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||══════════════════" CYN " >> LISTA DE CLIENTES EM ORDEM ALFABETICA << " BLU "════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
+
+    FILE *p;
+    Cliente* novocli; 
+    Cliente* lista; 
+    p = fopen("ARQUIVOS/clientes", "rb");
+    if (p == NULL) {
+        printf("Erro ao abrir o arquivo\n");
+        exit(1); 
+    }
+
+    lista = NULL;
+    novocli = (Cliente*)malloc(sizeof(Cliente));
+
+    if (novocli == NULL) {
+        printf("Erro de alocacao de memoria\n");
+        exit(1); 
+    }
+
+    while (fread(novocli, sizeof(Cliente), 1, p) == 1) { 
+        novocli->prox = NULL;  
+
+        if ((lista == NULL) || (strcmp(novocli->nome, lista->nome) < 0)) {  
+            novocli->prox = lista;
+            lista = novocli; 
+        } else {  
+            Cliente* ant = lista; 
+            Cliente* atual = lista->prox;  
+            while ((atual != NULL) && strcmp(atual->nome, novocli->nome) < 0) {   
+                ant = atual;  
+                atual = atual->prox; 
+            }
+            ant->prox = novocli;  
+            novocli->prox = atual;  
+        }
+
+        novocli = (Cliente*)malloc(sizeof(Cliente));
+        if (novocli == NULL) {
+            printf("Erro de alocacao de memoria\n");
+            exit(1);
+        }
+    }
+
+    fclose(p);
+
+    novocli = lista;  
+    printf(BLU "\n||═════════════════════════||═════════════════════════||═════════════════════════||\n");
+    printf("||  "MAG"CPF"BLU"                    ||  "MAG"NOME"BLU"                   ||  "MAG"TELEFONE"BLU"               ||\n" );
+    printf("||═════════════════════════||═════════════════════════||═════════════════════════||\n" RESET);
+    while (novocli != NULL) { 
+        printf(BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||\n"RESET, novocli->cpf, novocli->nome, novocli->tel);
+        printf(BLU"||═════════════════════════||═════════════════════════||═════════════════════════||\n"RESET);
+        
+        novocli = novocli->prox;  
+    }
+
+    novocli = lista;  
+    while (lista != NULL) {
+        lista = lista->prox;  
+        free(novocli); 
+        novocli = lista;
+    }
+    digite_zero();
+}
+
 int cli_fil_nome(){
     tela_pri();
     printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
@@ -17,7 +88,6 @@ int cli_fil_nome(){
     char nome_ip[100];
     bool aux = true;
     
-    limparBuffer();
     printf("\n             >> "CYN"Informe o NOME do cliente: "RESET);
     while(aux == true){
         scanf(" %99[^\n]", nome_ip);
@@ -44,6 +114,10 @@ int cli_fil_nome(){
         exit(1);
     }
     else{
+        printf(BLU "\n||═════════════════════════||═════════════════════════||═════════════════════════||\n");
+        printf("||  "MAG"CPF"BLU"                    ||  "MAG"NOME"BLU"                   ||  "MAG"TELEFONE"BLU"               ||\n" );
+        printf("||═════════════════════════||═════════════════════════||═════════════════════════||\n" RESET);
+
         while(fread(&novo, sizeof(struct cliente), 1, p) && !feof(p)){
             if(ferror(p)){
             printf("\nERRO NA LEITURA\n");
@@ -51,10 +125,8 @@ int cli_fil_nome(){
             else{
                 if(novo.status == 1){
                     if(strcmp(novo.nome,nome_ip)==0){
-                        printf("\n             >> CPF: "MAG"%s"RESET"", novo.cpf);
-                        printf("\n             >> NOME: "MAG"%s"RESET"", novo.nome);
-                        printf("\n             >> TELEFONE: "MAG"%s"RESET"\n", novo.tel);
-                        printf(BLU "\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
+                        printf(BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||\n"RESET, novo.cpf, novo.nome, novo.tel);
+                        printf(BLU"||═════════════════════════||═════════════════════════||═════════════════════════||\n"RESET);
                     }
                 }
             }
@@ -65,9 +137,10 @@ int cli_fil_nome(){
 }
 
 int cli_fil_tudo(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|----------------------------  C L I E N T E S  ----------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||════════════════════════════" CYN " >> LISTA DE CLIENTES << " BLU "══════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
     struct cliente novo;
     FILE *p;
     p = fopen("ARQUIVOS/clientes", "rb");
@@ -76,18 +149,19 @@ int cli_fil_tudo(){
         exit(1);
     }
     else{
+        printf(BLU "\n||═════════════════════════||═════════════════════════||═════════════════════════||\n");
+        printf("||  "MAG"CPF"BLU"                    ||  "MAG"NOME"BLU"                   ||  "MAG"TELEFONE"BLU"               ||\n" );
+        printf("||═════════════════════════||═════════════════════════||═════════════════════════||\n" RESET);
         while(fread(&novo, sizeof(struct cliente), 1, p)){
             if(ferror(p)){
             printf("\nERRO NA LEITURA\n");
             }
             else{
+                
                 if (novo.status == 1)
                 {
-                    printf("\nCPF [ %s ] ", novo.cpf);
-                    printf("\nNome [ %s ] ", novo.nome);
-                    printf("\nTelefone [ %s ] \n", novo.tel);
-
-                    printf("\n|---------------------------------------------------------------------------|\n");
+                    printf(BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||\n"RESET, novo.cpf, novo.nome, novo.tel);
+                    printf(BLU"||═════════════════════════||═════════════════════════||═════════════════════════||\n"RESET);
                 }
             }
         }
@@ -98,17 +172,18 @@ int cli_fil_tudo(){
 
 //####################################### LISTAR HORARIOS #################################################
 int agd_fil_data(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|----------------------------  H O R A R I O S  ----------------------------|\n");
-    printf("|---------------------------  A G E N D A D O S  ---------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||════════════════════════════" CYN " >> HORARIOS AGENDADOS << " BLU "═════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
     struct horario nh;
+    struct cliente nc;
     FILE *p;
+
     char data_ip[11];
     bool aux = true;
     
-    limparBuffer();
-    printf("Informe a DATA: ");
+    printf("\n             >> "CYN"Informe a DATA a agendar (Formato: XX/XX/XXXX): "RESET);
     while(aux == true){
         scanf(" %10[^\n]", data_ip);
         if(validardata(data_ip)){
@@ -131,6 +206,7 @@ int agd_fil_data(){
         printf("Erro ao abrir arquivo\n!");
         exit(1);
     }
+  
     else{
         while(fread(&nh, sizeof(struct horario), 1, p) && !feof(p)){
             if(ferror(p)){
@@ -138,15 +214,15 @@ int agd_fil_data(){
             }
             else{
                 if(strcmp(nh.data,data_ip)==0){
-                    printf("\nCLIENTE");
-                    printf("\nCPF [ %s ] ", nh.cpf_cli);
+                    printf("\n             >> "CYN"CLIENTE"RESET" <<");
+                    printf("\n             >> CPF: "MAG"%s"RESET"", nh.cpf_cli);
                     print_cli(nh.cpf_cli);
-                    printf("\nAGENDA");
-                    printf("\nData [ %s ] ", nh.data);
-                    printf("\nHora [ %s ] ", nh.hora);
-                    printf("\nID PRECO [ %s ] ", nh.id_preco);
+                    printf("\n             >> "CYN"AGENDA"RESET" <<");
+                    printf("\n             >> Data: "MAG"%s"RESET"", nh.data);
+                    printf("\n             >> Hora: "MAG"%s"RESET"", nh.hora);
                     print_id(nh.id_preco);
-                    printf("\n|---------------------------------------------------------------------------|\n");
+                    printf(BLU"\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
+
                 }
             }
         }
@@ -156,10 +232,10 @@ int agd_fil_data(){
 }
 
 int agd_fil_tudo(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|----------------------------  H O R A R I O S  ----------------------------|\n");
-    printf("|---------------------------  A G E N D A D O S  ---------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||════════════════════════════" CYN " >> HORARIOS AGENDADOS << " BLU "═════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
     struct horario nh;
     FILE *p;
     p = fopen("ARQUIVOS/horarios", "a+b");
@@ -173,15 +249,14 @@ int agd_fil_tudo(){
             printf("\nERRO NA LEITURA\n");
             }
             else{
-                printf("\nCLIENTE");
-                printf("\nCPF [ %s ] ", nh.cpf_cli);
+                printf("\n             >> "CYN"CLIENTE"RESET" <<");
+                printf("\n             >> CPF: "MAG"%s"RESET"", nh.cpf_cli);
                 print_cli(nh.cpf_cli);
-                printf("\nAGENDA");
-                printf("\nData [ %s ] ", nh.data);
-                printf("\nHora [ %s ] ", nh.hora);
-                printf("\nID PRECO [ %s ] ", nh.id_preco);
+                printf("\n             >> "CYN"AGENDA"RESET" <<");
+                printf("\n             >> Data: "MAG"%s"RESET"", nh.data);
+                printf("\n             >> Hora: "MAG"%s"RESET"", nh.hora);
                 print_id(nh.id_preco);
-                printf("\n|---------------------------------------------------------------------------|\n");
+                printf(BLU"\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
             }
         }
     }
@@ -192,17 +267,16 @@ int agd_fil_tudo(){
 //####################################### LISTAR PRECOS #################################################
 
 int pre_fil_serv(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|---------------------------  T A B E L A  D E  ----------------------------|\n");
-    printf("|------------------------------  P R E C O S  ------------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||═════════════════════════════" CYN " >> TABELA DE PRECOS << " BLU "══════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
     struct precos pr;
     FILE *p;
     char serv_ip[25];
     bool aux = true;
     
-    limparBuffer();
-    printf("Informe o servico: ");
+    printf("\n             >> "CYN"Informe o servico: "RESET);
     while(aux == true){
         scanf(" %24[^\n]", serv_ip);
 
@@ -218,7 +292,8 @@ int pre_fil_serv(){
             }else{
                 return 0;
             }
-            printf("\nDigite novamente: ");
+            printf(BLU "\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
+            printf("\n             >> "RED"Digite novamente: "RESET);
         }
     }
     p = fopen("ARQUIVOS/precos", "rb");
@@ -227,6 +302,9 @@ int pre_fil_serv(){
         exit(1);
     }
     else{
+        printf(BLU "\n||═════════════════════════||═════════════════════════||═════════════════════════||\n");
+        printf("||  "MAG"ID"BLU"                     ||  "MAG"SERVICO"BLU"                ||  "MAG"PRECO"BLU"                  ||\n" );
+        printf("||═════════════════════════||═════════════════════════||═════════════════════════||\n" RESET);
         while(fread(&pr, sizeof(struct precos), 1, p) && !feof(p)){
             if(ferror(p)){
             printf("\nERRO NA LEITURA\n");
@@ -235,11 +313,10 @@ int pre_fil_serv(){
                 if (pr.status == 1)
                 {
                     if(strcmp(pr.servico,serv_ip) == 0){
-                    printf("\nID [ %s ] ", pr.id);
-                    printf("\nServico [ %s ] ", pr.servico);
-                    printf("\nPreco R$ [ %s ] \n", pr.preco);
-                    printf("\n|---------------------------------------------------------------------------|\n");
-                }                }
+                    printf(BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||\n"RESET, pr.id, pr.servico, pr.preco);
+                    printf(BLU"||═════════════════════════||═════════════════════════||═════════════════════════||\n"RESET);    
+                    }                
+                }
             }
         }
     }
@@ -248,10 +325,10 @@ int pre_fil_serv(){
 }
 
 int pre_fil_tudo(){
-    printf("|---------------------------------------------------------------------------|\n");
-    printf("|---------------------------  T A B E L A  D E  ----------------------------|\n");
-    printf("|------------------------------  P R E C O S  ------------------------------|\n");
-    printf("|---------------------------------------------------------------------------|\n");
+    tela_pri();
+    printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
+    printf("||═════════════════════════════" CYN " >> TABELA DE PRECOS << " BLU "══════════════════════════||\n" );
+    printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
     struct precos pr;
     FILE *p;
     p = fopen("ARQUIVOS/precos", "a+b");
@@ -260,6 +337,9 @@ int pre_fil_tudo(){
         exit(1);
     }
     else{
+        printf(BLU "\n||═════════════════════════||═════════════════════════||═════════════════════════||\n");
+        printf("||  "MAG"ID"BLU"                     ||  "MAG"SERVICO"BLU"                ||  "MAG"PRECO"BLU"                  ||\n" );
+        printf("||═════════════════════════||═════════════════════════||═════════════════════════||\n" RESET);
         while(fread(&pr, sizeof(struct precos), 1, p)){
             if(ferror(p)){
             printf("\nERRO NA LEITURA\n");
@@ -267,10 +347,8 @@ int pre_fil_tudo(){
             else{
                 if (pr.status == 1)
                 {
-                    printf("\nID [ %s ] ", pr.id);
-                    printf("\nServico [ %s ] ", pr.servico);
-                    printf("\nPreco R$ [ %s ] \n", pr.preco);
-                    printf("\n|---------------------------------------------------------------------------|\n");
+                    printf(BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||  "RESET"%-20s   "BLU"||\n"RESET, pr.id, pr.servico, pr.preco);
+                    printf(BLU"||═════════════════════════||═════════════════════════||═════════════════════════||\n"RESET);
                 }
             }
         }
@@ -334,6 +412,56 @@ int print_cli(char *cpf){
     fclose(p);
 }
 
-int print_hor(){
+char *pes_cli_nome(char *cpf){
+    struct cliente novo;
+    FILE *p;
+    char cpf_ip[12];
+    bool aux = true;
+    char *name;
+    p = fopen("ARQUIVOS/clientes", "rb");
+    if(p == NULL){
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+    else{
+        while(fread(&novo, sizeof(struct cliente), 1, p) && !feof(p)){
+            if(ferror(p)){
+            printf("\n             >> "RED"ERRO NA LEITURA"RESET" <<\n");
+            }
+            else{
+                if(strcmp(novo.cpf,cpf)==0){
+                    name = novo.nome;
+                    return name;
+                }
+            }
+        }
+    }
+    fclose(p);
+}
 
+char *pes_cli_tel(char *cpf){
+    struct cliente novo;
+    FILE *p;
+    char cpf_ip[12];
+    bool aux = true;
+    char *telefone;
+    p = fopen("ARQUIVOS/clientes", "rb");
+    if(p == NULL){
+        printf("Erro ao abrir arquivo\n!");
+        exit(1);
+    }
+    else{
+        while(fread(&novo, sizeof(struct cliente), 1, p) && !feof(p)){
+            if(ferror(p)){
+            printf("\n             >> "RED"ERRO NA LEITURA"RESET" <<\n");
+            }
+            else{
+                if(strcmp(novo.cpf,cpf)==0){
+                    telefone = novo.tel;
+                    return telefone;
+                }
+            }
+        }
+    }
+    fclose(p);
 }

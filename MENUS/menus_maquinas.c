@@ -22,18 +22,16 @@ int maq_lista(){
         exit(1);
     }
     else{
+        printf(BLU "\n||══════════════════════════════════════||═══════════════════════════════════════||\n");
+        printf("||  "MAG"ID"BLU"                                  ||  "MAG"MODELO"BLU"                               ||\n" );
+        printf("||══════════════════════════════════════||═══════════════════════════════════════||\n" RESET);
         while(fread(&maq, sizeof(struct maquinas), 1, p)){
             if(ferror(p)){
             printf("\nERRO NA LEITURA\n");
             }
             else{
-                printf("\n||═══════════════════════════════════════════════════════════════════════════════||");
-                printf("\n||               ID               ||                  %s             ", maq.id);
-                printf("\n||               NOME             ||                  %s             ", maq.nome);
-                printf("\n||═══════════════════════════════════════════════════════════════════════════════||");
-
-                printf(BLU"\n\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
-
+                printf(BLU"||  "RESET"%-30s      "BLU"||  "RESET"%-30s       "BLU"||\n"RESET, maq.id, maq.nome);
+                printf(BLU"||══════════════════════════════════════||═══════════════════════════════════════||\n"RESET);
             }
         }
     }
@@ -53,10 +51,20 @@ int maq_pesquisa(){
     char id_maq[10];
     bool aux = true;
     
-    limparBuffer();
     printf("\n             >> "CYN"Informe o ID da maquina: "RESET);
-    if(processo_ID_MAQ(maq.id)==0){
-        return 0;
+    while(aux == true){
+        scanf(" %9[^\n]", id_maq);
+
+        if(validarnumero(id_maq)){
+            aux = false;
+        }
+        else{
+            aux = true;
+            char text[50] = "             >> "RED"ID INVALIDO"RESET" << \n";
+            if (processo_Continuar(text)==0){
+                return 0;
+            }
+        }
     }
 
     p = fopen("ARQUIVOS/maquinas", "rb");
@@ -71,8 +79,8 @@ int maq_pesquisa(){
             }
             else{
                 if(strcmp(maq.id,id_maq) == 0){
-                    printf("\nID [ %s ] ", maq.id);
-                    printf("\nNome [ %s ] \n", maq.nome);
+                    printf("\n             >> ID: "MAG"%s"RESET"", maq.id);
+                    printf("\n             >> NOME: "MAG"%s"RESET"\n", maq.nome);
                     printf(BLU"\n||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
                 }
             }
@@ -104,7 +112,7 @@ int maq_cadas(){
             return 0;
         }
 
-        printf("Informe a maquina: ");
+        printf("\n             >> "CYN"Informe o nome do modelo: "RESET);
         scanf(" %19[^\n]", maq.nome);
         fwrite(&maq, sizeof(struct maquinas), 1, p);
             if (ferror(p)){
@@ -155,7 +163,7 @@ int maq_edit(){
         while (fread(&maq, sizeof(struct maquinas), 1, p) && !feof(p)) {
             if (strcmp(maq.id, id_maq) == 0) {
 
-                printf("Informe a nova máquina: ");
+                printf("\n             >> "CYN"Informe o novo nome do modelo: "RESET);
                 scanf(" %19[^\n]", maq.nome);
                 maq.nome[strcspn(maq.nome, "\n")] = '\0';
 
@@ -195,7 +203,7 @@ int maq_del(){
         }
         else{
             aux = true;
-            char text[50] = "             >> "RED"ID INVALIDO"RESET" << ";
+            char text[50] = "\n             >> "RED"ID INVALIDO"RESET" << ";
             if (processo_Continuar(text)==0){
                 return 0;
             }

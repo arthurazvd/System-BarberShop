@@ -33,14 +33,13 @@ int agd_horario(){
 int agd_pesquisa(){
     tela_pri();
     printf(BLU "||═══════════════════════════════════════════════════════════════════════════════||\n");
-    printf("||═════════════════════════════"CYN" >> PESQUISA DE HORARIO << "BLU"════════════════════════════||\n");
+    printf("||═══════════════════════════"CYN" >> PESQUISA DE HORARIO << "BLU"══════════════════════════||\n");
     printf("||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
     struct horario nh;
     FILE *p;
     char cpf_ip[12];
     bool aux = true;
     
-    limparBuffer();
     printf("\n             >> Informe o CPF do cliente: ");
 
     if (processo_CPF(cpf_ip)==0){
@@ -92,23 +91,23 @@ int agd_agendar(){
         exit(1);
     }
     else{
-        printf("Informe o CPF do cliente: ");
+        printf("\n             >> "CYN"Informe o CPF do cliente: "RESET);
         if(processo_CPF_HOR(nh.cpf_cli)==0){
             return 0;
         }
 
-        printf("Informe a data a agendar ");
+        printf("\n             >> "CYN"Informe a DATA a agendar (Formato: XX/XX/XXXX): "RESET);
         //aqui ele vai ter que validar se aquele horario está disponivel 
         if(processo_Data(nh.data)==0){
             return 0;
         }
-        printf("Informe a hora a agendar ");
+        printf("\n             >> "CYN"Informe a HORA a agendar (Formato: XX:XX): "RESET);
         //aqui ele vai ter que validar se aquele horario está disponivel 
         if(processo_Hora(nh.hora)==0){
             return 0;
         }
 
-        printf("Informe o ID do serviço ");
+        printf("\n             >> "CYN"Informe o ID do servico: "RESET);
         //aqui ele vai ter que validar se aquele horario está disponivel 
         if(processo_ID_PRE(nh.id_preco)==0){
             return 0;
@@ -116,10 +115,10 @@ int agd_agendar(){
     }
     fwrite(&nh, sizeof(struct horario), 1, p);
         if (ferror(p)){
-            printf("\nERRO NA GRAVACAO\n");
+            printf("             >> "RED"ERRO NA GRAVAÇÃO"RESET" <<");
         }
         else{
-            printf("Gravacao OK\n");
+            printf("             >> "GRN"GRAVAÇÃO OK"RESET" <<");
         }
     fclose(p);
     
@@ -138,7 +137,7 @@ int agd_edit(){
     char cpf_ip[12];
     bool aux = true;
 
-    printf("\nInforme o CPF do cliente a ter horario editado: ");
+        printf("\n             >> "CYN"Informe o CPF do cliente a ser editado: "RESET);
     while(aux == true){
     if (processo_CPF(cpf_ip)){
             if (checkcli(cpf_ip)){
@@ -166,18 +165,20 @@ int agd_edit(){
     while (fread(&nh, sizeof(struct horario), 1, p) && !feof(p)) {
 
         if (strcmp(nh.cpf_cli, cpf_ip) == 0) {
-            printf("Informe o data a agendar ");
+            printf("\n             >> "CYN"Informe a DATA a agendar (Formato: XX/XX/XXXX): "RESET);
             if(processo_Data(nh.data)==0){
                 return 0;
             }
 
-            printf("Informe o hora a agendar ");
+            printf("\n             >> "CYN"Informe a HORA a agendar (Formato: XX:XX): "RESET);
             if(processo_Hora(nh.hora)==0){
                 return 0;
             }
 
             fseek(p, -sizeof(struct horario), SEEK_CUR);
             fwrite(&nh, sizeof(struct horario), 1, p);
+
+            printf("             >> "GRN"HORARIO EDITADO COM SUCESSO"RESET" <<");
 
             break;
         }
@@ -198,7 +199,7 @@ int agd_cancelamento(){
     char cpf_ip[12];
     bool aux = true;
 
-    printf("\nInforme o CPF do cliente a ter horario cancelado: ");
+        printf("\n             >> "CYN"Informe o CPF do cliente a ter horario cancelado: "RESET);
     
     while(aux == true){
     if (processo_CPF(cpf_ip)){
@@ -235,7 +236,7 @@ int agd_cancelamento(){
         remove("ARQUIVOS/horarios");
         rename("ARQUIVOS/horarios_temp", "ARQUIVOS/horarios");
 
-        printf("Horario cancelado com sucesso!\n");
+        printf("             >> "GRN"HORARIO CANCELADO COM SUCESSO"RESET" <<");
     }
     printf(BLU"||═══════════════════════════════════════════════════════════════════════════════||\n"RESET);
 

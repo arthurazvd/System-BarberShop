@@ -76,7 +76,6 @@ int processo_CPF_CAD(char *cpf_ip){
 int processo_Data(char *data){
     bool aux = true;
     while(aux == true){
-        printf("\nData: ");
         scanf(" %10[^\n]", data);
 
         if(validardata(data)){
@@ -95,7 +94,6 @@ int processo_Data(char *data){
 int processo_Hora(char *hora){
     bool aux = true;
     while(aux == true){
-        printf("\nHora: ");
         scanf(" %5[^\n]", hora);
         if(validarhora(hora)){
             aux = false;

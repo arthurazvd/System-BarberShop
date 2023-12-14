@@ -39,7 +39,6 @@ int pre_pesquisa(){
     char id_pre[10];
     bool aux = true;
     
-    limparBuffer();
     p = fopen("ARQUIVOS/precos", "rb");
     if(p == NULL){
         printf("Erro ao abrir arquivo\n!");
@@ -47,8 +46,24 @@ int pre_pesquisa(){
     }
 
     printf("\n             >> "CYN"Informe o ID do servico: "RESET);
-    if(processo_ID_PRE(pr.id)==0){
-        return 0;
+    while(aux == true){
+        scanf(" %3[^\n]", id_pre);
+        if(validarnumero(id_pre)){
+            if (checkidpre(id_pre))
+            {
+                aux = false;
+            }
+            else{
+                aux = true;
+            }
+        }
+        else{
+            aux = true;
+            char text[50] = "             >> "RED"ID INVALIDO"RESET" << \n";
+            if (processo_Continuar(text)==0){
+                return 0;
+            }
+        }
     }
 
     while(fread(&pr, sizeof(struct precos), 1, p) && !feof(p)){
@@ -104,10 +119,10 @@ int pre_cadas(){
 
         fwrite(&pr, sizeof(struct precos), 1, p);
         if (ferror(p)){
-            printf("             >> "RED"ERRO NA GRAVAÇÃO"RESET" <<");
+            printf("\n             >> "RED"ERRO NA GRAVAÇÃO"RESET" <<");
         }
         else{
-            printf("             >> "GRN"GRAVAÇÃO OK"RESET" <<");
+            printf("\n             >> "GRN"GRAVAÇÃO OK"RESET" <<");
         }
         fclose(p);
         }
@@ -206,7 +221,7 @@ int pre_del(){
             }
             else{
                 aux = true;
-                char text[50] = "             >> "RED"ID NAO CADASTRADO"RESET" << ";
+                char text[50] = "\n             >> "RED"ID NAO CADASTRADO"RESET" << ";
                 if (processo_Continuar(text)==0){
                     return 0;
                 }
@@ -214,7 +229,7 @@ int pre_del(){
         }
         else{
             aux = true;
-            char text[50] = "             >> "RED"ID INVALIDO"RESET" << ";
+            char text[50] = "\n             >> "RED"ID INVALIDO"RESET" << ";
             if (processo_Continuar(text)==0){
                 return 0;
             }

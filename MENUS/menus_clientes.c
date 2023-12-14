@@ -13,17 +13,21 @@ int cli_lista(){
     printf("||═════════════════════════════" CYN " >> LISTAR CLIENTES << " BLU "═══════════════════════════||\n" );
     printf("||═══════════════════════════════════════════════════════════════════════════════||\n");
     printf("||                                                                               ||\n");
-    printf("||                              1 "CYN"- LISTAR POR NOME"BLU"                              ||\n");
-    printf("||                              2 "CYN"- LISTAR TUDO"BLU"                                  ||\n");
-    printf("||                              0 "CYN"- VOLTAR"BLU"                                       ||\n");
+    printf("||                         1 "CYN"- LISTAR EM ORDEM ALFABETICA"BLU"                        ||\n");
+    printf("||                         2 "CYN"- LISTAR POR NOME"BLU"                                   ||\n");
+    printf("||                         3 "CYN"- LISTAR TUDO"BLU"                                       ||\n");
+    printf("||                         0 "CYN"- VOLTAR"BLU"                                            ||\n");
     printf("||                                                                               ||\n");
     printf("||═══════════════════════════════════════════════════════════════════════════════||\n" RESET);
 
     switch(digite_opcao()){
         case 1:
-            cli_fil_nome();
+            cli_fil_alfa();
             break;
         case 2:
+            cli_fil_nome();
+            break;
+        case 3:
             cli_fil_tudo();
             break;
     }

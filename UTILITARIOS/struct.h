@@ -1,8 +1,11 @@
+typedef struct cliente Cliente;
+
 struct cliente{
     char cpf[12];
     char nome[100];
     char tel[12];
     int status;
+    Cliente *prox;
 };
 
 struct horario{
